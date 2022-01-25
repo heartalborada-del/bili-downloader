@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="119.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.login">
+   <children>
+      <VBox prefHeight="38.0" prefWidth="345.0">
+         <children>
+            <Label fx:id="lable1" contentDisplay="CENTER" prefHeight="15.0" prefWidth="35.0" text="账号">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <TextField fx:id="acc_input" alignment="BASELINE_LEFT" promptText="你的手机号/邮箱" />
+            <Label fx:id="lable2" text="密码">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="pw_input" promptText="密码" />
+            <Button fx:id="bt1" mnemonicParsing="false" onAction="#bt_click" prefHeight="23.0" prefWidth="346.0" text="确认" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
