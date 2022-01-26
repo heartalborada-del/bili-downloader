@@ -5,16 +5,16 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 
-<AnchorPane prefHeight="641.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.captcha">
+<AnchorPane prefHeight="671.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.captcha">
    <children>
-      <VBox prefHeight="641.0" prefWidth="818.0">
+      <VBox prefHeight="671.0" prefWidth="818.0">
          <children>
-            <VBox prefHeight="818.0" prefWidth="100.0">
+            <VBox prefHeight="535.0" prefWidth="818.0">
                <children>
-                  <WebView fx:id="web" prefHeight="641.0" prefWidth="818.0" />
+                  <WebView fx:id="web" prefHeight="524.0" prefWidth="818.0" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="94.0" prefWidth="818.0">
+            <VBox alignment="CENTER" prefHeight="74.0" prefWidth="818.0">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -32,9 +32,9 @@
                                  </font>
                               </Label>
                               <TextField fx:id="challenge" editable="false" />
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
                            </children>
                         </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
                         <VBox prefHeight="94.0" prefWidth="409.0">
                            <children>
                               <Label text="validate">
@@ -55,7 +55,10 @@
                   </HBox>
                </children>
             </VBox>
-            <Button fx:id="bt1" mnemonicParsing="false" onAction="#bt_click" prefHeight="23.0" prefWidth="819.0" text="ok" />
+            <Button fx:id="bt1" mnemonicParsing="false" onAction="#bt_click" prefHeight="53.0" prefWidth="818.0" text="ok">
+               <font>
+                  <Font size="23.0" />
+               </font></Button>
          </children>
       </VBox>
    </children>

@@ -1,6 +1,8 @@
 package me.heartalborada.bilidownloader.utlis;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.config.CookieSpecs;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -10,7 +12,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -88,7 +93,12 @@ public class internet {
             CloseableHttpClient httpclient = null;
             CloseableHttpResponse httpresponse = null;
             try {
-                httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
+                httpclient = HttpClients.custom()
+                        .setDefaultCookieStore(cookieStore)
+                        .setDefaultRequestConfig(RequestConfig.custom()
+                                .setCookieSpec(CookieSpecs.STANDARD_STRICT)
+                                .build())
+                        .build();
                 HttpPost httppost = new HttpPost(url);
                 // StringEntity stringentity = new StringEntity(data);
                 if (pairs != null && pairs.size() > 0) {

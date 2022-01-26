@@ -6,20 +6,74 @@
 
 <AnchorPane prefHeight="119.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.login">
    <children>
-      <VBox prefHeight="38.0" prefWidth="345.0">
+      <VBox prefHeight="200.0" prefWidth="344.0">
          <children>
-            <Label fx:id="lable1" contentDisplay="CENTER" prefHeight="15.0" prefWidth="35.0" text="账号">
-               <font>
-                  <Font size="14.0" />
-               </font></Label>
-            <TextField fx:id="acc_input" alignment="BASELINE_LEFT" promptText="你的手机号/邮箱" />
-            <Label fx:id="lable2" text="密码">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="pw_input" promptText="密码" />
-            <Button fx:id="bt1" mnemonicParsing="false" onAction="#bt_click" prefHeight="23.0" prefWidth="346.0" text="确认" />
+            <VBox prefHeight="61.0" prefWidth="344.0">
+               <children>
+                  <ToolBar prefHeight="40.0">
+                    <items>
+                        <Label text="登录方式选择" />
+                      <Button fx:id="pw_login" mnemonicParsing="false" onAction="#changeLoginMode" text="密码登录" />
+                        <Button fx:id="sms_login" mnemonicParsing="false" onAction="#changeLoginMode" text="短信登录" />
+                        <Button fx:id="qr_login" mnemonicParsing="false" onAction="#changeLoginMode" text="扫码登陆" />
+                    </items>
+                  </ToolBar>
+               </children>
+            </VBox>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox fx:id="password" prefHeight="167.0" prefWidth="345.0" visible="false">
+                     <children>
+                        <Label fx:id="lable1" contentDisplay="CENTER" prefHeight="15.0" prefWidth="35.0" text="账号">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="acc_input" alignment="BASELINE_LEFT" promptText="你的手机号/邮箱" />
+                        <Label fx:id="lable2" text="密码">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="pw_input" promptText="密码" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="sms" prefHeight="167.0" prefWidth="345.0">
+                     <children>
+                        <Label text="手机号码">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <SplitPane dividerPositions="0.5" prefHeight="19.0" prefWidth="345.0">
+                           <items>
+                              <ChoiceBox fx:id="sms_choice" minHeight="-Infinity" prefWidth="100.0" />
+                              <TextField fx:id="phone_number" promptText="手机号" />
+                           </items>
+                        </SplitPane>
+                        <Label text="验证码">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <SplitPane dividerPositions="0.5" prefHeight="14.0" prefWidth="345.0">
+                           <items>
+                              <TextField fx:id="sms_code" promptText="验证码" />
+                              <Button mnemonicParsing="false" onAction="#getSmsCode" prefHeight="23.0" prefWidth="156.0" text="获取验证码" />
+                           </items>
+                        </SplitPane>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="qr" prefHeight="167.0" prefWidth="345.0" />
+                  <VBox layoutY="109.0" prefHeight="58.0" prefWidth="344.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#getCaptcha" prefHeight="23.0" prefWidth="376.0" text="获取人机验证验证码" />
+                        <VBox prefHeight="13.0" prefWidth="345.0" />
+                        <Button fx:id="bt1" mnemonicParsing="false" onAction="#doLogin" prefHeight="23.0" prefWidth="346.0" text="登录" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
          </children>
       </VBox>
    </children>
