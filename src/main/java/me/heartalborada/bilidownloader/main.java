@@ -35,7 +35,7 @@ public class main {
             System.err.println("本程序需要在Java 11及以上的环境运行");
             System.exit(0);
         }
-        if(System.getProperty("os.name")=="Liunx"){
+        if(System.getProperty("os.name").equals("Linux")){
             System.setProperty("java.awt.headless","true");
         }
         try {
