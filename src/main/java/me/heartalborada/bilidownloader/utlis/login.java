@@ -333,4 +333,52 @@ public class login {
             }
         }
     }
+
+    public static class qr{
+        public static String getOauthKey(){
+            String data= null;
+            try {
+                data = new internet().Eget("http://passport.bilibili.com/qrcode/getLoginUrl");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return JsonParser.parseString(data).getAsJsonObject().getAsJsonObject("data").get("oauthKey").getAsString();
+        }
+
+        public static String[] IsLogin(String OauthKey) throws IOException {
+            HashMap<String,Object> map=new HashMap<>();
+            map.put("oauthKey",OauthKey);
+            Object[] data=sendPost("http://passport.bilibili.com/qrcode/getLoginInfo",map);
+            JsonObject json=JsonParser.parseString(String.valueOf(data[0])).getAsJsonObject();
+            if(!json.get("status").getAsBoolean()){
+                if(json.get("data").getAsInt()==-4){
+                    return new String[]{"0","未扫描"};
+                }
+                if(json.get("data").getAsInt()==-5){
+                    return new String[]{"0","已扫描, 但未确认"};
+                }
+            }
+            if(json.get("status").getAsBoolean()){
+                JsonObject json1=new JsonObject();
+                @SuppressWarnings("unchecked")
+                List<Cookie> list= (List<Cookie>) data[1];
+                for(Cookie cookie:list){
+                    if(cookie.getName().equals("SESSDATA")){
+                        json1.addProperty("SESSDATA",cookie.getValue());
+                    }
+                    if(cookie.getName().equals("bili_jct")){
+                        json1.addProperty("bili_jct",cookie.getValue());
+                    }
+                }
+                new file().write(main.cookie_file_dir,json1.toString());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.titleProperty().set("信息");
+                alert.setHeaderText("登录成功");
+                alert.show();
+                me.heartalborada.bilidownloader.gui.login.close();
+                return new String[]{"1",json.getAsJsonObject("data").get("url").getAsString()};
+            }
+            return new String[]{"0","未知错误, 错误代码"+json.get("data").getAsInt()};
+        }
+    }
 }

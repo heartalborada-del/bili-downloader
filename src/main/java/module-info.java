@@ -13,6 +13,8 @@ module me.heartalborada.bilibili.downloader.bilidownloader {
     requires org.apache.commons.codec;
     requires org.apache.httpcomponents.httpclient;
     requires org.apache.httpcomponents.httpcore;
+    requires com.google.zxing;
+    requires com.google.zxing.javase;
 
     exports me.heartalborada.bilidownloader.gui;
     opens me.heartalborada.bilidownloader.gui to javafx.fxml;

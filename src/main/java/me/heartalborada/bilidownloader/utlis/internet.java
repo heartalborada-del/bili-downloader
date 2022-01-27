@@ -126,7 +126,8 @@ public class internet {
         URLConnection conn = url.openConnection();
         conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0");
         conn.setDoInput(true);
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        conn.setRequestProperty("Contect-Type","charset=UTF-8");
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         String line = null;
         while ((line = br.readLine()) != null) {
@@ -149,6 +150,5 @@ public class internet {
         }
         return sb.toString();
     }
-
 
 }

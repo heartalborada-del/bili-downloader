@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="119.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.login">
+<AnchorPane prefHeight="307.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.login">
    <children>
-      <VBox prefHeight="200.0" prefWidth="344.0">
+      <VBox prefHeight="307.0" prefWidth="344.0">
          <children>
             <VBox prefHeight="61.0" prefWidth="344.0">
                <children>
@@ -20,9 +22,9 @@
                   </ToolBar>
                </children>
             </VBox>
-            <Pane prefHeight="200.0" prefWidth="200.0">
+            <Pane prefHeight="289.0" prefWidth="344.0">
                <children>
-                  <VBox fx:id="password" prefHeight="167.0" prefWidth="345.0" visible="false">
+                  <VBox fx:id="password" prefHeight="167.0" prefWidth="345.0">
                      <children>
                         <Label fx:id="lable1" contentDisplay="CENTER" prefHeight="15.0" prefWidth="35.0" text="账号">
                            <font>
@@ -38,7 +40,7 @@
                         <PasswordField fx:id="pw_input" promptText="密码" />
                      </children>
                   </VBox>
-                  <VBox fx:id="sms" prefHeight="167.0" prefWidth="345.0">
+                  <VBox fx:id="sms" prefHeight="167.0" prefWidth="345.0" visible="false">
                      <children>
                         <Label text="手机号码">
                            <font>
@@ -64,12 +66,23 @@
                         </SplitPane>
                      </children>
                   </VBox>
-                  <VBox fx:id="qr" prefHeight="167.0" prefWidth="345.0" />
-                  <VBox layoutY="109.0" prefHeight="58.0" prefWidth="344.0">
+                  <VBox fx:id="qr" alignment="TOP_CENTER" prefHeight="268.0" prefWidth="345.0" visible="false">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#getCaptcha" prefHeight="23.0" prefWidth="376.0" text="获取人机验证验证码" />
+                        <Label text="登录二维码" />
+                        <ImageView fx:id="qrcode_show" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                        <Line endX="100.0" startX="-100.0" />
+                        <Label fx:id="qrlogin_state" text="状态: 未生成二维码/二维码已过期">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#getQRcode" text="获取登录二维码" />
+                     </children></VBox>
+                  <VBox fx:id="captcha_login" layoutY="208.0" prefHeight="68.0" prefWidth="344.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#getCaptcha" prefHeight="0.0" prefWidth="344.0" text="获取人机验证验证码" />
                         <VBox prefHeight="13.0" prefWidth="345.0" />
-                        <Button fx:id="bt1" mnemonicParsing="false" onAction="#doLogin" prefHeight="23.0" prefWidth="346.0" text="登录" />
+                        <Button mnemonicParsing="false" onAction="#doLogin" prefHeight="23.0" prefWidth="346.0" text="登录" />
                      </children>
                   </VBox>
                </children>
