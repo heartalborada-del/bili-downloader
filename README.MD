@@ -1,7 +1,7 @@
-#Bili-Dowloader
-##这是什么
+# Bili-Dowloader
+## 这是什么
 ~~可能是个视频下载器~~
-##目前完成的功能
+## 目前完成的功能
 1. B站登录 (gui.login/utlis.login)
     - 账号密码登录
     - 短信验证码登录
