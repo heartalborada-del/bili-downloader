@@ -30,7 +30,6 @@ public class main {
     }
 
     public static void main(String[] arg){
-
         try {
             new main().setParam();
         } catch (IOException e) {
@@ -38,6 +37,7 @@ public class main {
         }
         if(!checkIsLogin()){
             login.main(new String[]{""});
+            return;
         }
     }
 
