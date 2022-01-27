@@ -40,7 +40,7 @@ jobs:
     - name: Upload to Actions
       uses: actions/upload-artifact@v2.3.1
       with:
-        name: "bili-downloader-liunx.jar"
+        name: "bili-downloader-linux.jar"
         path: "target/*.jar"
   build-macos:
     runs-on: macos-latest
