@@ -8,6 +8,8 @@
     - 扫码登陆
 ## 信息
 使用的api来自Bilibili官方 [Bilibili-API-collect](https://github.com/SocialSisterYi/bilibili-API-collect)
+
+运行所需环境: java版本≥11
 ## 如何下载
 [戳我去Github Actions下载](https://github.com/heartalborada-del/bili-downloader/actions)
 

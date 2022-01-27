@@ -7,7 +7,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import me.heartalborada.bilidownloader.main;
 
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class video {
     public long getCid(long aid,int page){
@@ -29,10 +32,10 @@ public class video {
         return 404;
     }
 
-    public long BVidToAid(String BVid){
+    public static long BVidToAid(String BVid){
         String data=null;
         try {
-            data=new internet().Eget("https://api.bilibili.com/x/web-interface/view?BVid="+BVid);
+            data=new internet().Eget("https://api.bilibili.com/x/web-interface/view?bvid="+BVid);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,5 +80,42 @@ public class video {
             }
         }
         return map;
+    }
+
+    public static String getVideoPic(long aid){
+        String data=null;
+        try {
+            data=new internet().Eget("https://api.bilibili.com/x/web-interface/view?aid="+aid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return JsonParser.parseString(data).getAsJsonObject().getAsJsonObject("data").get("pic").getAsString();
+    }
+
+    public static boolean checkStrIsNum(String str) {
+        Pattern NUMBER_PATTERN = Pattern.compile("-?[0-9]+(\\.[0-9]+)?");
+        String bigStr;
+        try {
+            /** 先将str转成BigDecimal，然后在转成String */
+            bigStr = new BigDecimal(str).toString();
+        } catch (Exception e) {
+            /** 如果转换数字失败，说明该str并非全部为数字 */
+            return false;
+        }
+        Matcher isNum = NUMBER_PATTERN.matcher(str);
+        if (!isNum.matches()) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean videoIsExist(long aid){
+        String data=null;
+        try {
+            data=new internet().Eget("https://api.bilibili.com/x/web-interface/view?aid="+aid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return JsonParser.parseString(data).getAsJsonObject().get("code").getAsInt()==0;
     }
 }

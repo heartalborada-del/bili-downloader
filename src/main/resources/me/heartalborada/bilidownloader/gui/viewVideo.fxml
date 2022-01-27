@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="530.0" prefWidth="600.0" stylesheets="@viewVideo.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.viewVideo">
+   <children>
+      <VBox prefHeight="542.0" prefWidth="600.0">
+         <children>
+            <HBox prefHeight="147.0" prefWidth="600.0">
+               <children>
+                  <VBox prefHeight="92.0" prefWidth="176.0">
+                     <children>
+                        <Label text="填写AV号或者是BV号" />
+                        <TextField fx:id="id_input" promptText="填写AV号或者是BV号" />
+                        <Label fx:id="error_l" prefHeight="22.0" prefWidth="187.0" style="bottom: 10px;" text="错误信息: ">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#a" prefHeight="23.0" prefWidth="189.0" text="确认" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="258.0" prefWidth="96.0" />
+                  <VBox prefHeight="146.0" prefWidth="329.0" />
+               </children>
+            </HBox>
+            <VBox id="video_box" alignment="CENTER" prefHeight="397.0" prefWidth="600.0">
+               <children>
+                  <ImageView fx:id="pic" fitHeight="358.0" fitWidth="573.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
