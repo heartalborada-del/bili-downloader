@@ -30,6 +30,14 @@ public class main {
     }
 
     public static void main(String[] arg){
+        String java_version= System.getProperty("java.version").split("\\.")[0];
+        if(Integer.parseInt(java_version)<11){
+            System.err.println("本程序需要在Java 11及以上的环境运行");
+            System.exit(0);
+        }
+        if(System.getProperty("os.name")=="Liunx"){
+            System.setProperty("java.awt.headless","true");
+        }
         try {
             new main().setParam();
         } catch (IOException e) {
