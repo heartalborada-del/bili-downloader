@@ -24,13 +24,6 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Upload to release
-      uses: xresloader/upload-to-github-release@v1.3.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: actions/upload-artifact@v2.3.1
       with:
-        file: "target/*.jar"
-        tags: true
-        overwrite: true
-        tag_name: "Release"
-        update_latest_release: true
-        draft: false
+        path: "target/*.jar"
