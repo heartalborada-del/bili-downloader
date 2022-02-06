@@ -82,14 +82,22 @@ public class video {
         return map;
     }
 
-    public static String getVideoPic(long aid){
+    public static JsonObject getVideoJson(String aid,String BVid){
         String data=null;
         try {
-            data=new internet().Eget("https://api.bilibili.com/x/web-interface/view?aid="+aid);
+            if(BVid==null) {
+                data = new internet().Eget("https://api.bilibili.com/x/web-interface/view?aid=" + aid);
+            } else {
+                data = new internet().Eget("https://api.bilibili.com/x/web-interface/view?bvid=" + BVid);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return JsonParser.parseString(data).getAsJsonObject().getAsJsonObject("data").get("pic").getAsString();
+        return JsonParser.parseString(data).getAsJsonObject();
+    }
+
+    public static String getVideoPic(JsonObject json){
+        return json.getAsJsonObject("data").get("pic").getAsString();
     }
 
     public static boolean checkStrIsNum(String str) {
@@ -109,13 +117,7 @@ public class video {
         return true;
     }
 
-    public static boolean videoIsExist(long aid){
-        String data=null;
-        try {
-            data=new internet().Eget("https://api.bilibili.com/x/web-interface/view?aid="+aid);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return JsonParser.parseString(data).getAsJsonObject().get("code").getAsInt()==0;
+    public static boolean videoIsExist(JsonObject json){
+        return json.get("code").getAsInt()==0;
     }
 }

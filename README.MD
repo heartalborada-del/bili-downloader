@@ -6,6 +6,8 @@
     - 账号密码登录
     - 短信验证码登录
     - 扫码登陆
+## 划为计划内的未完成功能
+1. Bilibili视频信息获取及下载
 ## 信息
 使用的api来自Bilibili官方 [Bilibili-API-collect](https://github.com/SocialSisterYi/bilibili-API-collect)
 

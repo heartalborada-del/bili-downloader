@@ -1,0 +1,7 @@
+{
+  "download_settings": {
+    "download_path": "{$running_path}/download",
+    "file_name_format": "${video_name}_${video_page}",
+    "max_buffer_size": 2048
+  }
+}

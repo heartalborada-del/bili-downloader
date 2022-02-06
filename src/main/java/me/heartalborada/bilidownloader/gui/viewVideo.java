@@ -1,5 +1,6 @@
 package me.heartalborada.bilidownloader.gui;
 
+import com.google.gson.JsonObject;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import me.heartalborada.bilidownloader.utlis.video;
 
@@ -38,29 +42,33 @@ public class viewVideo extends Application implements Initializable {
     private TextField id_input;
     @FXML
     private Label error_l;
+    @FXML
+    private MediaView videop;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
     public void a(){
-        String tmp=id_input.getText();
-        if(tmp.startsWith("BV")||tmp.startsWith("bv")){
-            if(tmp.substring(2).equals("")){
-                error_l.setText("错误信息: BV号输入错误");
+        String in=id_input.getText();
+        JsonObject json;
+        if(in.startsWith("BV")||in.startsWith("bv")){
+            if(in.substring(2).equals("")||in.substring(2).length()<10){
+                error_l.setText("错误信息: 视频ID输入错误");
                 return;
             }
-            tmp = String.valueOf(video.BVidToAid(tmp));
-        }
-        if(tmp.equals("404")){
-            error_l.setText("错误信息: 此视频不存在");
+            json=video.getVideoJson(null,in);
+        } else if(video.checkStrIsNum(in)){
+            json=video.getVideoJson(in,null);
+        } else {
+            error_l.setText("错误信息: 视频ID输入错误");
             return;
         }
-        if(video.checkStrIsNum(tmp)) {
-            if(!videoIsExist(Long.parseLong(tmp))){
-                error_l.setText("错误信息: 此视频不存在");
-                return;
-            }
-            pic.setImage(new Image(video.getVideoPic(Long.parseLong(tmp))));
+        if(!videoIsExist(json)){
+            error_l.setText("ID:"+in+" 错误信息: 此视频不存在");
+            return;
         }
+        pic.setImage(new Image(video.getVideoPic(json)));
+        MediaPlayer mp=new MediaPlayer(new Media("file:///D:/test.flv"));
+        videop.setMediaPlayer(mp);
     }
 }
