@@ -7,21 +7,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import me.heartalborada.bilidownloader.utlis.download;
 import me.heartalborada.bilidownloader.utlis.video;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
+import static me.heartalborada.bilidownloader.utlis.video.checkStrIsNum;
 import static me.heartalborada.bilidownloader.utlis.video.videoIsExist;
 
 public class viewVideo extends Application implements Initializable {
@@ -41,34 +40,61 @@ public class viewVideo extends Application implements Initializable {
     @FXML
     private TextField id_input;
     @FXML
-    private Label error_l;
+    private Label Vsize,VDspeed;
     @FXML
-    private MediaView videop;
+    private ChoiceBox vpl,video_page;
+
+    private static LinkedHashMap<String, Long> videoPagesMap;
+    private static LinkedHashMap<String, Integer> videoQnMap;
+    private static String videoid;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
+
     public void a(){
-        String in=id_input.getText();
+        videoid=id_input.getText();
         JsonObject json;
-        if(in.startsWith("BV")||in.startsWith("bv")){
-            if(in.substring(2).equals("")||in.substring(2).length()<10){
-                error_l.setText("错误信息: 视频ID输入错误");
+        if(videoid.startsWith("BV")||videoid.startsWith("bv")){
+            if(videoid.substring(2).equals("")||videoid.substring(2).length()<10){
                 return;
             }
-            json=video.getVideoJson(null,in);
-        } else if(video.checkStrIsNum(in)){
-            json=video.getVideoJson(in,null);
-        } else {
-            error_l.setText("错误信息: 视频ID输入错误");
+            videoid=video.BVidToAid(videoid);
+        } else if(!checkStrIsNum(videoid)){
             return;
         }
+        json=video.getVideoJson(videoid);
         if(!videoIsExist(json)){
-            error_l.setText("ID:"+in+" 错误信息: 此视频不存在");
             return;
         }
         pic.setImage(new Image(video.getVideoPic(json)));
-        MediaPlayer mp=new MediaPlayer(new Media("file:///D:/test.flv"));
-        videop.setMediaPlayer(mp);
+        showVideoPages(videoid);
+    }
+
+    public void showVideoRes(){
+        vpl.getItems().clear();
+        videoQnMap=video.getQuality(videoid,videoPagesMap.get(video_page.getValue().toString()));
+        Iterator<Map.Entry<String, Integer>> iterator= videoQnMap.entrySet().iterator();
+        while(iterator.hasNext())
+        {
+            Map.Entry<String, Integer> entry = iterator.next();
+            vpl.getItems().add(entry.getKey());
+        }
+        vpl.getSelectionModel().select(0);
+    }
+
+    public void showVideoPages(String aid){
+        videoPagesMap=video.getCidList(aid);
+        Iterator<Map.Entry<String, Long>> iterator= videoPagesMap.entrySet().iterator();
+        while(iterator.hasNext())
+        {
+            Map.Entry<String, Long> entry = iterator.next();
+            video_page.getItems().add(entry.getKey());
+        }
+        video_page.getSelectionModel().select(0);
+    }
+
+    public void download(){
+        String url= new video().getVideoUrl(videoid,videoPagesMap.get(video_page.getValue().toString()),videoQnMap.get(vpl.getValue().toString()));
+        download.downVideo(url, "D:/", "TEST", "flv", Vsize, VDspeed);
     }
 }

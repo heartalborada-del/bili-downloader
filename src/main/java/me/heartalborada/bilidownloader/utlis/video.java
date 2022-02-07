@@ -13,26 +13,27 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class video {
-    public long getCid(long aid,int page){
+    public static LinkedHashMap<String, Long> getCidList(String aid){
+        LinkedHashMap<String,Long> map=new LinkedHashMap<String,Long>();
         String data=null;
         try {
-            data=new internet().Eget("https://api.bilibili.com/x/web-interface/view?aid="+aid);
+                data=new internet().Eget("https://api.bilibili.com/x/web-interface/view?aid="+aid);
         } catch (Exception e) {
             e.printStackTrace();
         }
         JsonObject json= JsonParser.parseString(data).getAsJsonObject();
         if(json.get("code").getAsInt()==0) {
             JsonArray pages=json.get("data").getAsJsonObject().get("pages").getAsJsonArray();
+            int i=0;
             for (JsonElement o : pages) {
-                if (o.getAsJsonObject().get("page").getAsInt() == page) {
-                    return o.getAsJsonObject().get("cid").getAsLong();
-                }
+                map.put("P"+i+" "+o.getAsJsonObject().get("part").getAsString(),o.getAsJsonObject().get("cid").getAsLong());
+                i++;
             }
         }
-        return 404;
+        return map;
     }
 
-    public static long BVidToAid(String BVid){
+    public static String BVidToAid(String BVid){
         String data=null;
         try {
             data=new internet().Eget("https://api.bilibili.com/x/web-interface/view?bvid="+BVid);
@@ -41,12 +42,12 @@ public class video {
         }
         JsonObject json=JsonParser.parseString(data).getAsJsonObject();
         if(json.get("code").getAsInt()==0) {
-            return json.get("data").getAsJsonObject().get("aid").getAsLong();
+            return json.get("data").getAsJsonObject().get("aid").getAsString();
         }
-        return 404;
+        return "404";
     }
-
-    public String getVideoUrl(long aid,long cid,int qn1){
+    private static JsonObject json;
+    public String getVideoUrl(String aid, long cid, int qn1){
         String data=null;
         try {
             data=new internet().getWithCookie(
@@ -56,15 +57,16 @@ public class video {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        JsonObject json=JsonParser.parseString(data).getAsJsonObject();
+         json=JsonParser.parseString(data).getAsJsonObject();
+        System.out.println(json);
         if(json.get("code").getAsInt()==0){
-            return json.get("durl").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
+            return json.getAsJsonObject("data").get("durl").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
         }
         return "404";
     }
 
-    public LinkedHashMap<Integer,String> getQuality(long aid,long cid){
-        LinkedHashMap<Integer,String>map= new LinkedHashMap<>();
+    public static LinkedHashMap<String,Integer> getQuality(String aid, long cid){
+        LinkedHashMap<String,Integer>map= new LinkedHashMap<>();
         String data=null;
         try {
             data=new internet().Eget("https://api.bilibili.com/x/player/playurl?avid="+aid+"&cid="+cid+"&fourk=1");
@@ -76,20 +78,16 @@ public class video {
             JsonArray description= json.get("data").getAsJsonObject().get("accept_description").getAsJsonArray();
             JsonArray quality= json.get("data").getAsJsonObject().get("accept_quality").getAsJsonArray();
             for(int i=0;i<description.size();i++){
-                map.put(quality.get(i).getAsInt(),description.get(i).getAsString());
+                map.put(description.get(i).getAsString(),quality.get(i).getAsInt());
             }
         }
         return map;
     }
 
-    public static JsonObject getVideoJson(String aid,String BVid){
+    public static JsonObject getVideoJson(String aid){
         String data=null;
         try {
-            if(BVid==null) {
-                data = new internet().Eget("https://api.bilibili.com/x/web-interface/view?aid=" + aid);
-            } else {
-                data = new internet().Eget("https://api.bilibili.com/x/web-interface/view?bvid=" + BVid);
-            }
+            data = new internet().Eget("https://api.bilibili.com/x/web-interface/view?aid=" + aid);
         } catch (Exception e) {
             e.printStackTrace();
         }
