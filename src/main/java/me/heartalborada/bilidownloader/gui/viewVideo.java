@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import me.heartalborada.bilidownloader.main;
 import me.heartalborada.bilidownloader.utlis.download;
 import me.heartalborada.bilidownloader.utlis.video;
 
@@ -40,7 +41,7 @@ public class viewVideo extends Application implements Initializable {
     @FXML
     private TextField id_input;
     @FXML
-    private Label Vsize,VDspeed;
+    private Label Vsize,VDspeed,title;
     @FXML
     private ChoiceBox vpl,video_page;
 
@@ -68,6 +69,7 @@ public class viewVideo extends Application implements Initializable {
         }
         pic.setImage(new Image(video.getVideoPic(json)));
         showVideoPages(videoid);
+        title.setText(json.getAsJsonObject("data").get("title").getAsString());
     }
 
     public void showVideoRes(){
@@ -92,9 +94,16 @@ public class viewVideo extends Application implements Initializable {
         }
         video_page.getSelectionModel().select(0);
     }
-
+    private static Thread t;
     public void download(){
         String url= new video().getVideoUrl(videoid,videoPagesMap.get(video_page.getValue().toString()),videoQnMap.get(vpl.getValue().toString()));
-        download.downVideo(url, "D:/", "TEST", "flv", Vsize, VDspeed);
+        //download.downVideo(url, "D:/", "TEST", "flv", Vsize, VDspeed);
+        t= new Thread(() -> new download().downVideo(url,
+                main.download_path,
+                main.video_format.replace("${video_page}",video_page.getValue().toString()).replace("${video_name}",title.getText().split(" ")[0]),
+                "flv",
+                Vsize,
+                VDspeed));
+        t.run();
     }
 }

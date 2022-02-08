@@ -46,7 +46,9 @@ public class video {
         }
         return "404";
     }
+
     private static JsonObject json;
+
     public String getVideoUrl(String aid, long cid, int qn1){
         String data=null;
         try {

@@ -38,6 +38,7 @@
             </HBox>
             <VBox id="video_box" alignment="CENTER" prefHeight="397.0" prefWidth="600.0">
                <children>
+                  <Label fx:id="title" text="null" />
                   <ImageView fx:id="pic" fitHeight="358.0" fitWidth="573.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </VBox>

@@ -1,7 +1,9 @@
 package me.heartalborada.bilidownloader.utlis;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
@@ -10,12 +12,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class download {
-    public static void downVideo(String videoUrl, String downloadPath, String fileName, String SuffixName, Label l1,Label L2) {
+    public void downVideo(String videoUrl, String downloadPath, String fileName, String SuffixName, Label l1, Label L2) {
+        File F1= new File(downloadPath);
+        if(!F1.exists()){
+            F1.mkdirs();
+        }
         HttpURLConnection connection = null;
         InputStream inputStream = null;
         RandomAccessFile randomAccessFile = null;
         String fullPathName = downloadPath+fileName+"."+SuffixName;
-
         try {
             URL url = new URL(videoUrl);
             connection = (HttpURLConnection) url.openConnection();
@@ -32,9 +37,10 @@ public class download {
             int downloaded = 0;
             int fileSize = connection.getContentLength();
             randomAccessFile = new RandomAccessFile(fullPathName, "rw");
+            l1.setText("文件大小: "+(double)fileSize/1000.00/1000.00+"MB");
             while (downloaded < fileSize) {
                 byte[] buffer = null;
-                int MAX_BUFFER_SIZE=2048;
+                int MAX_BUFFER_SIZE=4096;
                 if (fileSize - downloaded >= MAX_BUFFER_SIZE) {
                     buffer = new byte[MAX_BUFFER_SIZE];
                 } else {
@@ -55,9 +61,6 @@ public class download {
                 randomAccessFile.write(buffer);
                 downloaded += currentDownload;
                 randomAccessFile.seek(downloaded);
-                l1.setText("文件大小: "+fileSize/1000/1000+"MB");
-                System.out.printf(fullPathName+"下载了进度:%.2f%%,下载速度：%.1fkb/s(%.1fM/s)%n", downloaded * 1.0 / fileSize * 10000 / 100,
-                        speed, speed / 1000);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -71,6 +74,14 @@ public class download {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.titleProperty().set("信息");
+            alert.setHeaderText(fileName+" 下载完毕");
+            alert.show();
         }
+    }
+
+    public void t01(){
+
     }
 }
