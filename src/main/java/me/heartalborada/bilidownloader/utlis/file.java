@@ -38,6 +38,7 @@ public class file {
         while ((line = br.readLine()) != null) {
             //process the line
             stringBuilder.append(line);
+            stringBuilder.append("\n\r");
         }
         br.close();
         return stringBuilder.toString();

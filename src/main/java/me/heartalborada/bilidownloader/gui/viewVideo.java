@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -44,12 +45,22 @@ public class viewVideo extends Application implements Initializable {
     private Label Vsize,VDspeed,title;
     @FXML
     private ChoiceBox vpl,video_page;
-
+    @FXML
+    private Button bt2,bt3;
     private static LinkedHashMap<String, Long> videoPagesMap;
     private static LinkedHashMap<String, Integer> videoQnMap;
     private static String videoid;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
+
+    public void clear(){
+        bt2.setDisable(true);
+        bt3.setDisable(true);
+        vpl.getItems().clear();
+        video_page.getItems().clear();
+        title.setText("null");
+        pic.imageProperty().set(null);
     }
 
     public void a(){
@@ -70,6 +81,7 @@ public class viewVideo extends Application implements Initializable {
         pic.setImage(new Image(video.getVideoPic(json)));
         showVideoPages(videoid);
         title.setText(json.getAsJsonObject("data").get("title").getAsString());
+        bt2.setDisable(false);
     }
 
     public void showVideoRes(){
@@ -82,6 +94,7 @@ public class viewVideo extends Application implements Initializable {
             vpl.getItems().add(entry.getKey());
         }
         vpl.getSelectionModel().select(0);
+        bt3.setDisable(false);
     }
 
     public void showVideoPages(String aid){
