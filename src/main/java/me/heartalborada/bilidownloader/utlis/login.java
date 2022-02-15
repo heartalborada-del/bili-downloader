@@ -112,15 +112,15 @@ public class login {
         public static void doLogin(String acc, String pw, String[] captcha) {
             HashMap<String,Object> map=new HashMap<>();
             map.put("captchaType",6);
-            map.put("username",acc.toString());
-            map.put("password",pw.toString());
+            map.put("username", acc);
+            map.put("password", pw);
             map.put("keep",true);
             map.put("key",captcha[0]);
             map.put("challenge",captcha[1]);
             map.put("validate",captcha[2]);
             map.put("seccode",captcha[3]);
             try {
-                Object[] data=new internet().sendPost("http://passport.bilibili.com/web/login/v2",map);
+                Object[] data=internet.sendPost("http://passport.bilibili.com/web/login/v2",map);
                 if (data != null) {
                     if(JsonParser.parseString(String.valueOf(data[0])).getAsJsonObject().get("code").getAsInt()==0){
                         JsonObject json=new JsonObject();
@@ -157,7 +157,6 @@ public class login {
                                 break;
                             case -662:
                                 alert.setHeaderText("错误代码: "+code+"-提交超时,请重新提交\n请重新打开验证窗口并提交");
-                                alert.setContentText("验证链接: "+JsonParser.parseString(String.valueOf(data[0])).getAsJsonObject().get("data").getAsString());
                                 break;
                             case -2001:
                                 alert.setHeaderText("错误代码: "+code+"-缺少必要的的参数\n请联系开发者");

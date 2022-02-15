@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="530.0" prefWidth="600.0" stylesheets="@viewVideo.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.viewVideo">
+   <children>
+      <VBox prefHeight="542.0" prefWidth="600.0">
+         <children>
+            <HBox prefHeight="147.0" prefWidth="600.0">
+               <children>
+                  <VBox prefHeight="146.0" prefWidth="333.0">
+                     <children>
+                        <Label text="填写AV号或者是BV号" />
+                        <TextField fx:id="id_input" onKeyPressed="#clear" promptText="填写AV号或者是BV号" />
+                        <Button mnemonicParsing="false" onAction="#a" prefHeight="23.0" prefWidth="304.0" text="确认" />
+                        <Label text="视频分P选择" />
+                        <ChoiceBox fx:id="video_page" prefHeight="23.0" prefWidth="292.0" />
+                        <VBox prefHeight="12.0" prefWidth="279.0" />
+                        <Button fx:id="bt2" disable="true" mnemonicParsing="false" onAction="#showVideoRes" prefHeight="38.0" prefWidth="289.0" text="获取视频分辨率" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" />
+                  <VBox prefHeight="146.0" prefWidth="329.0">
+                     <children>
+                        <ChoiceBox fx:id="vpl" prefHeight="23.0" prefWidth="275.0" />
+                        <VBox pickOnBounds="false" prefHeight="123.0" prefWidth="275.0" />
+                        <Button fx:id="bt3" disable="true" mnemonicParsing="false" onAction="#download" prefHeight="37.0" prefWidth="280.0" text="下载" />
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="下载信息:" />
+                              <Label fx:id="Vsize" text="视频大小: null" />
+                              <Label fx:id="VDspeed" text="下载速度: null" />
+                           </children>
+                        </VBox>
+                     </children></VBox>
+               </children>
+            </HBox>
+            <VBox id="video_box" alignment="CENTER" prefHeight="397.0" prefWidth="600.0">
+               <children>
+                  <Label fx:id="title" text="null" />
+                  <ImageView fx:id="pic" fitHeight="358.0" fitWidth="573.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
