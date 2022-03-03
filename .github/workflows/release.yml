@@ -5,12 +5,26 @@ name: Bulid Release Version
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+    tags: "v*"
+    paths: "src/main/*"
 jobs:
+  re:
+    runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.create_release.outputs.upload_url}}
+    steps:
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v0.1.14
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
   build-windows:
+    needs: re
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -21,12 +35,17 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Upload to Actions
-      uses: actions/upload-artifact@v2.3.1
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: "bili-downloader-windows.jar"
-        path: "target/*.jar"
+        upload_url: ${{needs.re.outputs.url}}
+        asset_path: "target/*.jar" 
+        asset_name: bili-downloader-windows-${{ github.ref }}.jar
   build-liunx:
+    needs: re
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -37,12 +56,17 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Upload to Actions
-      uses: actions/upload-artifact@v2.3.1
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: "bili-downloader-linux.jar"
-        path: "target/*.jar"
+        upload_url: ${{needs.re.outputs.url}}
+        asset_path: "target/*.jar" 
+        asset_name: bili-downloader-liunx-${{ github.ref }}.jar
   build-macos:
+    needs: re
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -53,8 +77,12 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Upload to Actions
-      uses: actions/upload-artifact@v2.3.1
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: "bili-downloader-macos.jar"
-        path: "target/*.jar"
+        upload_url: ${{needs.re.outputs.url}}
+        asset_path: "target/*.jar" 
+        asset_name: bili-downloader-macos-${{ github.ref }}.jar
