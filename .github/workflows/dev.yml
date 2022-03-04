@@ -6,7 +6,7 @@ name: Bulid Dev Version
 on:
   push:
     tags-ignore: 
-      - v**
+      - v*
     paths: 
       - 'src/main/*'
 
@@ -25,7 +25,7 @@ jobs:
     - name: Upload to Actions
       uses: actions/upload-artifact@v2.3.1
       with:
-        name: "bili-downloader-windows.jar"
+        name: "bili-downloader-windows"
         path: "target/*.jar"
   build-liunx:
     runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
     - name: Upload to Actions
       uses: actions/upload-artifact@v2.3.1
       with:
-        name: "bili-downloader-linux.jar"
+        name: "bili-downloader-linux"
         path: "target/*.jar"
   build-macos:
     runs-on: macos-latest
@@ -57,5 +57,5 @@ jobs:
     - name: Upload to Actions
       uses: actions/upload-artifact@v2.3.1
       with:
-        name: "bili-downloader-macos.jar"
+        name: "bili-downloader-macos"
         path: "target/*.jar"
