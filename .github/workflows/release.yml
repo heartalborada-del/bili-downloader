@@ -5,8 +5,11 @@ name: Bulid Release Version
 
 on:
   push:
-    tags: "v*"
-    paths: "src/main/*"
+    tags: 
+      - v**
+    paths: 
+      - 'src/main/*'
+
 jobs:
   re:
     runs-on: ubuntu-latest
