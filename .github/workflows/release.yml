@@ -6,9 +6,7 @@ name: Bulid Release Version
 on:
   push:
     tags: 
-      - v**
-    paths: 
-      - 'src/main/*'
+      - v*
 
 jobs:
   re:
@@ -50,7 +48,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{needs.re.outputs.url}}
-        asset_path: "target/*.jar" 
+        asset_path: "target/bili-downloader.jar"
         asset_name: bili-downloader-windows-${{ github.ref }}.jar
         asset_content_type: application/java-archive
   build-liunx:
@@ -72,8 +70,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{needs.re.outputs.url}}
-        asset_path: "target/*.jar" 
-        asset_name: bili-downloader-liunx-${{ github.ref }}.jar
+        asset_path: "target/bili-downloader.jar"
+        asset_name: bili-downloader-liunx-${{needs.re.outputs.version}}.jar
         asset_content_type: application/java-archive
   build-macos:
     needs: re
@@ -94,6 +92,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{needs.re.outputs.url}}
-        asset_path: "target/*.jar" 
+        asset_path: "target/bili-downloader.jar"
         asset_name: bili-downloader-macos-${{ github.ref }}.jar
         asset_content_type: application/java-archive

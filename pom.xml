@@ -15,10 +15,7 @@
     </properties>
 
     <repositories>
-        <repository>
-            <id>repo</id>
-            <url>https://maven.pkg.github.com/caprica/vlcj</url>
-        </repository>
+
     </repositories>
 
     <dependencies>
@@ -178,6 +175,7 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
+                    <finalName>bili-downloader</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
