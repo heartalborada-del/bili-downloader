@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import me.heartalborada.bilidownloader.utlis.login;
+import me.heartalborada.bilidownloader.utils.login;
 
 import java.io.IOException;
 import java.net.URL;

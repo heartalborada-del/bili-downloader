@@ -7,8 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/config" type="java-test-resource" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/download" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -16,11 +16,12 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.13" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
-    <orderEntry type="library" name="Maven: uk.co.caprica:vlcj:4.7.1" level="project" />
-    <orderEntry type="library" name="Maven: uk.co.caprica:vlcj-javafx:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: net.java.dev.jna:jna:5.10.0" level="project" />
+    <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:5.10.0" level="project" />
+    <orderEntry type="library" name="Maven: uk.co.caprica:vlcj:4.7.0" level="project" />
     <orderEntry type="library" name="Maven: uk.co.caprica:vlcj-natives:4.5.0" level="project" />
-    <orderEntry type="library" name="Maven: net.java.dev.jna:jna:5.5.0" level="project" />
-    <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:5.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:2.0.0-alpha6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:slf4j-nop:2.0.0-alpha6" level="project" />
     <orderEntry type="library" name="Maven: com.google.zxing:core:3.4.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.zxing:javase:3.4.1" level="project" />
     <orderEntry type="library" name="Maven: com.beust:jcommander:1.78" level="project" />

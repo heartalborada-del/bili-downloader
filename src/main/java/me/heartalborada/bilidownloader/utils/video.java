@@ -1,4 +1,4 @@
-package me.heartalborada.bilidownloader.utlis;
+package me.heartalborada.bilidownloader.utils;
 
 
 import com.google.gson.JsonArray;

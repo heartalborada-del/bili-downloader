@@ -1,4 +1,4 @@
-package me.heartalborada.bilidownloader.utlis;
+package me.heartalborada.bilidownloader.utils;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import static me.heartalborada.bilidownloader.utlis.internet.sendPost;
+import static me.heartalborada.bilidownloader.utils.internet.sendPost;
 
 public class login {
 

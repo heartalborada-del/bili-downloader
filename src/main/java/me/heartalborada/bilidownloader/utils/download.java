@@ -1,4 +1,4 @@
-package me.heartalborada.bilidownloader.utlis;
+package me.heartalborada.bilidownloader.utils;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;

@@ -1,4 +1,4 @@
-package me.heartalborada.bilidownloader.utlis;
+package me.heartalborada.bilidownloader.utils;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.CookieSpecs;

@@ -4,13 +4,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import me.heartalborada.bilidownloader.gui.login;
 import me.heartalborada.bilidownloader.gui.viewVideo;
-import me.heartalborada.bilidownloader.utlis.file;
+import me.heartalborada.bilidownloader.utils.file;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.stream.Stream;
 
-import static me.heartalborada.bilidownloader.utlis.login.checkIsLogin;
+import static me.heartalborada.bilidownloader.utils.login.checkIsLogin;
 
 public class main {
     //file

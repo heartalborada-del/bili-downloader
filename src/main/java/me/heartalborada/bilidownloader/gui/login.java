@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import me.heartalborada.bilidownloader.utlis.qrcode;
+import me.heartalborada.bilidownloader.utils.qrcode;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -24,9 +24,9 @@ import java.net.URL;
 import java.util.*;
 import java.util.function.UnaryOperator;
 
-import static me.heartalborada.bilidownloader.utlis.login.qr.IsLogin;
-import static me.heartalborada.bilidownloader.utlis.login.qr.getOauthKey;
-import static me.heartalborada.bilidownloader.utlis.login.sms.getSmsLocationMap;
+import static me.heartalborada.bilidownloader.utils.login.qr.IsLogin;
+import static me.heartalborada.bilidownloader.utils.login.qr.getOauthKey;
+import static me.heartalborada.bilidownloader.utils.login.sms.getSmsLocationMap;
 
 public class login extends Application implements Initializable{
     //captcha begin
@@ -182,7 +182,7 @@ public class login extends Application implements Initializable{
         int cid= map.get(sms_choice.getValue());
         sixteens_cooldown((Button) event.getSource());
         long pn=Long.parseLong(phone_number.getText());
-        String tmp = me.heartalborada.bilidownloader.utlis.login.sms.SendSmsCaptcha(
+        String tmp = me.heartalborada.bilidownloader.utils.login.sms.SendSmsCaptcha(
                 pn,
                 cid,
                 new String[]{
@@ -245,8 +245,8 @@ public class login extends Application implements Initializable{
                 alert.show();
                 return;
             }
-            String pw = me.heartalborada.bilidownloader.utlis.login.password.getPw(pw_none);
-            me.heartalborada.bilidownloader.utlis.login.password.doLogin(
+            String pw = me.heartalborada.bilidownloader.utils.login.password.getPw(pw_none);
+            me.heartalborada.bilidownloader.utils.login.password.doLogin(
                     acc,
                     pw,
                     new String[]{
@@ -269,7 +269,7 @@ public class login extends Application implements Initializable{
             int cid= map.get(sms_choice.getValue());
             long pn=Long.parseLong(phone_number.getText());
             long code=Long.parseLong(sms_code.getText());
-            me.heartalborada.bilidownloader.utlis.login.sms.doLogin(cid,pn,code,captcha_key);
+            me.heartalborada.bilidownloader.utils.login.sms.doLogin(cid,pn,code,captcha_key);
         }
     }
 }

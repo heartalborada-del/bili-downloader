@@ -15,15 +15,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import me.heartalborada.bilidownloader.main;
-import me.heartalborada.bilidownloader.utlis.download;
-import me.heartalborada.bilidownloader.utlis.video;
+import me.heartalborada.bilidownloader.utils.download;
+import me.heartalborada.bilidownloader.utils.video;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-import static me.heartalborada.bilidownloader.utlis.video.checkStrIsNum;
-import static me.heartalborada.bilidownloader.utlis.video.videoIsExist;
+import static me.heartalborada.bilidownloader.utils.video.checkStrIsNum;
+import static me.heartalborada.bilidownloader.utils.video.videoIsExist;
 
 public class viewVideo extends Application implements Initializable {
     public static void main(String[] args) {
