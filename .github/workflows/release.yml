@@ -47,6 +47,7 @@ jobs:
         upload_url: ${{needs.re.outputs.url}}
         asset_path: "target/*.jar" 
         asset_name: bili-downloader-windows-${{ github.ref }}.jar
+        asset_content_type: application/java-archive
   build-liunx:
     needs: re
     runs-on: ubuntu-latest
@@ -68,6 +69,7 @@ jobs:
         upload_url: ${{needs.re.outputs.url}}
         asset_path: "target/*.jar" 
         asset_name: bili-downloader-liunx-${{ github.ref }}.jar
+        asset_content_type: application/java-archive
   build-macos:
     needs: re
     runs-on: macos-latest
@@ -89,3 +91,4 @@ jobs:
         upload_url: ${{needs.re.outputs.url}}
         asset_path: "target/*.jar" 
         asset_name: bili-downloader-macos-${{ github.ref }}.jar
+        asset_content_type: application/java-archive
