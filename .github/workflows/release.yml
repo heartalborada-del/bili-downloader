@@ -49,7 +49,7 @@ jobs:
       with:
         upload_url: ${{needs.re.outputs.url}}
         asset_path: "target/bili-downloader.jar"
-        asset_name: bili-downloader-windows-${{ github.ref }}.jar
+        asset_name: bili-downloader-windows-${{needs.re.outputs.version}}.jar
         asset_content_type: application/java-archive
   build-liunx:
     needs: re
