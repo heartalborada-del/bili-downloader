@@ -1,3 +1,5 @@
+<center>
+
 # Bili-Dowloader
 ## 这是什么
 ~~可能是个视频下载器~~
@@ -18,6 +20,16 @@
 
 运行所需环境: java版本≥11
 ## 如何下载
-[戳我去Github Actions下载](https://github.com/heartalborada-del/bili-downloader/actions)
+开发版当前情况:
+
+![bulid](https://img.shields.io/github/workflow/status/heartalborada-del/bili-downloader/Bulid%20Dev%20Version)
+
+[戳我去Github Actions下载](https://github.com/heartalborada-del/bili-downloader/actions/workflows/dev.yml)
+
+Release版本当前情况:
+
+![release](https://img.shields.io/github/v/release/heartalborada-del/bili-downloader.svg)
+![bulid](https://img.shields.io/github/workflow/status/heartalborada-del/bili-downloader/Bulid%20Release%20Version)
 
 [戳我去Github Releases下载](https://github.com/heartalborada-del/bili-downloader/releases)
+</center>
