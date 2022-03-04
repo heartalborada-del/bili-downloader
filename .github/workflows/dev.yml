@@ -5,9 +5,10 @@ name: Bulid Dev Version
 
 on:
   push:
-    branches: [ dev ]
-  pull_request:
-    branches: [ dev ]
+    tags-ignore: 
+      - v**
+    paths: 
+      - 'src/main/*'
 
 jobs:
   build-windows:
