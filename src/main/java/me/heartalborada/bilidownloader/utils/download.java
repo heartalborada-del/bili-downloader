@@ -37,7 +37,7 @@ public class download {
             int downloaded = 0;
             int fileSize = connection.getContentLength();
             randomAccessFile = new RandomAccessFile(fullPathName, "rw");
-            l1.setText("文件大小: "+(double)fileSize/1000.00/1000.00+"MB");
+            l1.setText("文件大小: "+(double)fileSize/1024.00/1024.00+"MB");
             while (downloaded < fileSize) {
                 byte[] buffer = null;
                 int MAX_BUFFER_SIZE=4096;
@@ -56,7 +56,9 @@ public class download {
                 long endTime = System.currentTimeMillis();
                 double speed = 0.0;
                 if (endTime - startTime > 0) {
-                    speed = currentDownload / 1024.0 / ((double) (endTime - startTime) / 1000);
+                    speed = Double.parseDouble(String.format("%.1f",currentDownload / 1024.00 / ((double) (endTime - startTime))));
+                    System.out.println(speed);
+                    L2.setText("下载速度: "+speed+"MB/s");
                 }
                 randomAccessFile.write(buffer);
                 downloaded += currentDownload;

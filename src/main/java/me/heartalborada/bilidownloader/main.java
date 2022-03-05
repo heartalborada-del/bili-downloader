@@ -2,6 +2,7 @@ package me.heartalborada.bilidownloader;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.application.Application;
 import me.heartalborada.bilidownloader.gui.login;
 import me.heartalborada.bilidownloader.gui.viewVideo;
 import me.heartalborada.bilidownloader.utils.file;
@@ -76,7 +77,9 @@ public class main {
             login.main(new String[]{""});
             return;
         }
-        viewVideo.main(new String[]{});
+        new Thread(() -> {
+            Application.launch(viewVideo.class);
+        }).run();
     }
 
 }

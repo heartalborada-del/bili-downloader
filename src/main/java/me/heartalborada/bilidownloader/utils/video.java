@@ -71,16 +71,22 @@ public class video {
         LinkedHashMap<String,Integer>map= new LinkedHashMap<>();
         String data=null;
         try {
-            data=new internet().Eget("https://api.bilibili.com/x/player/playurl?avid="+aid+"&cid="+cid+"&fourk=1");
+            data=new internet().getWithCookie(
+                    "https://api.bilibili.com/x/player/playurl?avid="+aid+"&cid="+cid+"&fourk=1&qn=120",
+                    "SESSDATA="+ main.SESSDATA+"; bili_jct="+main.bili_jct
+            );
         } catch (Exception e) {
             e.printStackTrace();
         }
         JsonObject json=JsonParser.parseString(data).getAsJsonObject();
+        System.out.println(data);
         if(json.get("code").getAsInt()==0){
             JsonArray description= json.get("data").getAsJsonObject().get("accept_description").getAsJsonArray();
             JsonArray quality= json.get("data").getAsJsonObject().get("accept_quality").getAsJsonArray();
+            int max=json.getAsJsonObject("data").get("quality").getAsInt();
             for(int i=0;i<description.size();i++){
-                map.put(description.get(i).getAsString(),quality.get(i).getAsInt());
+                if(!(max<quality.get(i).getAsInt()))
+                    map.put(description.get(i).getAsString(),quality.get(i).getAsInt());
             }
         }
         return map;

@@ -76,8 +76,8 @@ public class internet {
         }
     }
 
-    public static Object[] sendPost(String url, Map<String,Object> params) {
-        BasicCookieStore cookieStore= new BasicCookieStore();
+    public static Object[] sendPost(String url, Map<String, Object> params) {
+        BasicCookieStore cookieStore = new BasicCookieStore();
         String response = null;
         try {
             List<NameValuePair> pairs = null;
@@ -115,17 +115,17 @@ public class internet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Object[]{response,cookieStore.getCookies()};
+        return new Object[]{response, cookieStore.getCookies()};
     }
 
-    public String Eget(String uri) throws Exception{//Easy do get
+    public String Eget(String uri) throws Exception {//Easy do get
         URL url = new URL(uri);
         URLConnection conn = url.openConnection();
         conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0");
         conn.setDoInput(true);
-        conn.setRequestProperty("Contect-Type","charset=UTF-8");
-        conn.setRequestProperty("referer","https://www.bilibili.com");
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),StandardCharsets.UTF_8));
+        conn.setRequestProperty("Contect-Type", "charset=UTF-8");
+        conn.setRequestProperty("referer", "https://www.bilibili.com");
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         String line = null;
         while ((line = br.readLine()) != null) {
@@ -134,7 +134,7 @@ public class internet {
         return sb.toString();
     }
 
-    public String getWithCookie(String uri,String cookie) throws IOException {
+    public String getWithCookie(String uri, String cookie) throws IOException {
         URL url = new URL(uri);
         URLConnection conn = url.openConnection();
         conn.setRequestProperty("Cookie", cookie);
@@ -149,4 +149,28 @@ public class internet {
         return sb.toString();
     }
 
+    public static int getFileSize(String uri) {
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(uri);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0");
+            connection.setDoInput(true);
+            connection.setRequestProperty("referer", "https://www.bilibili.com");
+            connection.setRequestProperty("Range", "bytes=0-");
+            connection.connect();
+            if (connection.getResponseCode() / 100 != 2) {
+                System.out.println("连接失败...");
+                return 0;
+            }
+            int downloaded = 0;
+            int fileSize = connection.getContentLength();
+            return fileSize;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

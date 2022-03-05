@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import me.heartalborada.bilidownloader.main;
 import me.heartalborada.bilidownloader.utils.download;
+import me.heartalborada.bilidownloader.utils.internet;
 import me.heartalborada.bilidownloader.utils.video;
 
 import java.io.IOException;
@@ -61,6 +62,11 @@ public class viewVideo extends Application implements Initializable {
         video_page.getItems().clear();
         title.setText("null");
         pic.imageProperty().set(null);
+    }
+
+    public void showSize(){
+        String url= new video().getVideoUrl(videoid,videoPagesMap.get(video_page.getValue().toString()),videoQnMap.get(vpl.getValue().toString()));
+        Vsize.setText("文件大小: "+(double)internet.getFileSize(url)/1024.0/1024.0+"MB");
     }
 
     public void a(){
@@ -111,10 +117,14 @@ public class viewVideo extends Application implements Initializable {
     public void download(){
         String url= new video().getVideoUrl(videoid,videoPagesMap.get(video_page.getValue().toString()),videoQnMap.get(vpl.getValue().toString()));
         //download.downVideo(url, "D:/", "TEST", "flv", Vsize, VDspeed);
-        t= new Thread(() -> new download().downVideo(url,
+        String sn="flv";
+        if(16==videoQnMap.get(vpl.getValue().toString()))
+            sn="mp4";
+        String finalSn = sn;
+        t=new Thread(() -> new download().downVideo(url,
                 main.download_path,
                 main.video_format.replace("${video_page}",video_page.getValue().toString()).replace("${video_name}",title.getText().split(" ")[0]),
-                "flv",
+                finalSn,
                 Vsize,
                 VDspeed));
         t.run();
