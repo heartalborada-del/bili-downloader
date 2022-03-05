@@ -125,6 +125,7 @@ public class viewVideo extends Application implements Initializable {
                 main.download_path,
                 main.video_format.replace("${video_page}",video_page.getValue().toString()).replace("${video_name}",title.getText().split(" ")[0]),
                 finalSn,
+
                 Vsize,
                 VDspeed));
         t.run();
