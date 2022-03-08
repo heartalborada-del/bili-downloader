@@ -34,7 +34,7 @@ public class viewVideo extends Application implements Initializable {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource("viewVideo.fxml")));
-        primaryStage.setTitle("登录bilibili");
+        primaryStage.setTitle("bilibili-video");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
@@ -65,8 +65,10 @@ public class viewVideo extends Application implements Initializable {
     }
 
     public void showSize(){
+        /*
         String url= new video().getVideoUrl(videoid,videoPagesMap.get(video_page.getValue().toString()),videoQnMap.get(vpl.getValue().toString()));
         Vsize.setText("文件大小: "+(double)internet.getFileSize(url)/1024.0/1024.0+"MB");
+        */
     }
 
     public void a(){
@@ -113,6 +115,7 @@ public class viewVideo extends Application implements Initializable {
         }
         video_page.getSelectionModel().select(0);
     }
+
     private static Thread t;
     public void download(){
         String url= new video().getVideoUrl(videoid,videoPagesMap.get(video_page.getValue().toString()),videoQnMap.get(vpl.getValue().toString()));
