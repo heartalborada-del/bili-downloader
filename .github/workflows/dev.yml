@@ -5,8 +5,8 @@ name: Bulid Dev Version
 
 on:
   push:
-    paths:
-      - '*'
+    branches:
+      - master
 
 jobs:
   build-windows:
