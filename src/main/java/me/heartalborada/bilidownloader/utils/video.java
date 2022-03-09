@@ -8,6 +8,7 @@ import com.google.gson.JsonParser;
 import me.heartalborada.bilidownloader.main;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -86,7 +87,8 @@ public class video {
             int max=json.getAsJsonObject("data").get("quality").getAsInt();
             for(int i=0;i<description.size();i++){
                 if(!(max<quality.get(i).getAsInt()))
-                    map.put(description.get(i).getAsString(),quality.get(i).getAsInt());
+                    map.put(new String(description.get(i).getAsString().getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8)
+                            ,quality.get(i).getAsInt());
             }
         }
         return map;

@@ -7,8 +7,6 @@ on:
   push:
     tags-ignore: 
       - v*
-    paths: 
-      - 'src/main/*'
 
 jobs:
   build-windows:

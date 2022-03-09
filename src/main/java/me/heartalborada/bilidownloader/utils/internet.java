@@ -163,7 +163,7 @@ public class internet {
                 System.out.println("连接失败...");
                 return 0;
             }
-            int downloaded = 0;
+            
             int fileSize = connection.getContentLength();
             return fileSize;
         } catch (MalformedURLException e) {
