@@ -87,7 +87,7 @@ public class video {
             int max=json.getAsJsonObject("data").get("quality").getAsInt();
             for(int i=0;i<description.size();i++){
                 if(!(max<quality.get(i).getAsInt()))
-                    map.put(new String(description.get(i).getAsString().getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8)
+                    map.put(description.get(i).getAsString()
                             ,quality.get(i).getAsInt());
             }
         }
