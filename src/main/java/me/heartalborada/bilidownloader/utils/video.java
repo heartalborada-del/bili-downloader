@@ -79,6 +79,7 @@ public class video {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //data 获取有问题
         JsonObject json=JsonParser.parseString(data).getAsJsonObject();
         System.out.println(data);
         if(json.get("code").getAsInt()==0){
@@ -87,13 +88,14 @@ public class video {
             int max=json.getAsJsonObject("data").get("quality").getAsInt();
             for(int i=0;i<description.size();i++){
                 if(!(max<quality.get(i).getAsInt()))
+                {
                     try{
-                        map.put(new String(description.get(i).getAsString().getBytes("ISO_8859_1"),"UTF-8")
-                                ,quality.get(i).getAsInt());
+                        String a001=new String(description.get(i).getAsString().getBytes("ISO_8859_1"),"UTF-8")
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    
+                    map.put(a001,quality.get(i).getAsInt());
+                }
             }
         }
         return map;
