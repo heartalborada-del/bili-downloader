@@ -89,12 +89,8 @@ public class video {
             for(int i=0;i<description.size();i++){
                 if(!(max<quality.get(i).getAsInt()))
                 {
-                    try{
-                        String a001=new String(description.get(i).getAsString().getBytes("ISO_8859_1"),"UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                    map.put(a001,quality.get(i).getAsInt());
+                    map.put(description.get(i).getAsString()
+                    ,quality.get(i).getAsInt());
                 }
             }
         }

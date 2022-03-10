@@ -141,7 +141,7 @@ public class internet {
         conn.setRequestProperty("Contect-Type", "charset=UTF-8");
         conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0");
         conn.setDoInput(true);
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
         StringBuilder sb = new StringBuilder();
         String line = null;
         while ((line = br.readLine()) != null) {
