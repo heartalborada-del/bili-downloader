@@ -87,8 +87,13 @@ public class video {
             int max=json.getAsJsonObject("data").get("quality").getAsInt();
             for(int i=0;i<description.size();i++){
                 if(!(max<quality.get(i).getAsInt()))
-                    map.put(new String(description.get(i).getAsString().getBytes("ISO_8859_1"),"UTF-8")
-                            ,quality.get(i).getAsInt());
+                    try{
+                        map.put(new String(description.get(i).getAsString().getBytes("ISO_8859_1"),"UTF-8")
+                                ,quality.get(i).getAsInt());
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    
             }
         }
         return map;
