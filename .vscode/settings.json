@@ -1,6 +1,0 @@
-{
-    "git.path": "/java/apache-maven-3.8.4",
-    "java.configuration.maven.globalSettings": "../java/apache-maven-3.8.4/conf/settings.xml",
-    "java.configuration.maven.userSettings": "../java/apache-maven-3.8.4/conf/settings.xml",
-    "java.jdt.ls.java.home": "C:/Program Files/Eclipse Foundation/jdk-16.0.2.7-hotspot"
-}
