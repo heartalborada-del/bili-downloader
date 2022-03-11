@@ -13,12 +13,16 @@
 ## 划为计划内的未完成功能
 1. ~~Bilibili视频信息获取及下载~~
 2. VLC播放视频支持
+   - ~~播放本地/无防盗链视频支持~~
+   - bilibili防盗链视频支持(~~可能需要一个反代?~~)
 ## 已知的BUG (求各位大佬Pr修复啊)
 1. 下载视频时会卡死Gui线程
 ## 信息
 使用的api来自Bilibili官方 [Bilibili-API-collect](https://github.com/SocialSisterYi/bilibili-API-collect)
 
-运行所需环境: java版本≥11
+运行所需环境: 
+- v1.0.1≤java版本≥11
+- 更高版本需要java版本>11
 ## 如何下载
 开发版当前情况:
 

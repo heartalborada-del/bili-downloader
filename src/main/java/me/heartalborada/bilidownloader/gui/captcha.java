@@ -23,21 +23,31 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static me.heartalborada.bilidownloader.gui.login.*;
+import static me.heartalborada.bilidownloader.gui.login.flag;
+import static me.heartalborada.bilidownloader.gui.login.key;
 
-public class captcha extends Application implements Initializable{
+public class captcha extends Application implements Initializable {
+
+    private static Stage stage;
+    @FXML
+    private WebView web;
+    @FXML
+    private TextField gt, challenge, seccode, validate;
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    private static Stage stage;
+    public static void close() {
+        stage.close();
+    }
+
     @Override
     public void start(Stage stage1) throws IOException {
         String[] tmp = new String[3];
         if (flag == 0) {
             tmp = login.password.getCaptcha();
-        } else if(flag==1){
+        } else if (flag == 1) {
             tmp = login.sms.getCaptcha();
         }
         me.heartalborada.bilidownloader.gui.login.gt = tmp[0];
@@ -50,14 +60,9 @@ public class captcha extends Application implements Initializable{
         stage.show();
     }
 
-    @FXML
-    private WebView web;
-    @FXML
-    private TextField gt,challenge,seccode,validate;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        WebEngine engine=web.getEngine();
+        WebEngine engine = web.getEngine();
         engine.getLoadWorker().stateProperty()
                 .addListener(new ChangeListener<State>() {
                     @Override
@@ -72,8 +77,8 @@ public class captcha extends Application implements Initializable{
         challenge.setText(me.heartalborada.bilidownloader.gui.login.challenge);
     }
 
-    public void bt_click(ActionEvent event){
-        if(!(validate.getText().equals("") || seccode.getText().equals(""))) {
+    public void bt_click(ActionEvent event) {
+        if (!(validate.getText().equals("") || seccode.getText().equals(""))) {
             me.heartalborada.bilidownloader.gui.login.validate = validate.getText();
             me.heartalborada.bilidownloader.gui.login.seccode = seccode.getText();
             close();
@@ -83,9 +88,5 @@ public class captcha extends Application implements Initializable{
             alert.headerTextProperty().set("请填写\"validate\"和\"seccode\"");
             alert.showAndWait();
         }
-    }
-
-    public static void close(){
-        stage.close();
     }
 }

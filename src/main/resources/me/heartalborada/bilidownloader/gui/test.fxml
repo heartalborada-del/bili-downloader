@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.test">
+   <children>
+      <VBox fx:id="a1" prefHeight="307.0" prefWidth="600.0">
+         <children>
+            <MediaView fitHeight="200.0" fitWidth="200.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

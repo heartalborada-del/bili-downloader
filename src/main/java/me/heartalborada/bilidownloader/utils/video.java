@@ -8,97 +8,75 @@ import com.google.gson.JsonParser;
 import me.heartalborada.bilidownloader.main;
 
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class video {
-    public static LinkedHashMap<String, Long> getCidList(String aid){
-        LinkedHashMap<String,Long> map=new LinkedHashMap<String,Long>();
-        String data=null;
+    private static JsonObject json;
+
+    public static LinkedHashMap<String, Long> getCidList(String aid) {
+        LinkedHashMap<String, Long> map = new LinkedHashMap<String, Long>();
+        String data = null;
         try {
-                data=new internet().Eget("https://api.bilibili.com/x/web-interface/view?aid="+aid);
+            data = new internet().Eget("https://api.bilibili.com/x/web-interface/view?aid=" + aid);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        JsonObject json= JsonParser.parseString(data).getAsJsonObject();
-        if(json.get("code").getAsInt()==0) {
-            JsonArray pages=json.get("data").getAsJsonObject().get("pages").getAsJsonArray();
-            int i=0;
+        JsonObject json = JsonParser.parseString(data).getAsJsonObject();
+        if (json.get("code").getAsInt() == 0) {
+            JsonArray pages = json.get("data").getAsJsonObject().get("pages").getAsJsonArray();
+            int i = 0;
             for (JsonElement o : pages) {
-                map.put("P"+i+" "+o.getAsJsonObject().get("part").getAsString(),o.getAsJsonObject().get("cid").getAsLong());
+                map.put("P" + i + " " + o.getAsJsonObject().get("part").getAsString(), o.getAsJsonObject().get("cid").getAsLong());
                 i++;
             }
         }
         return map;
     }
 
-    public static String BVidToAid(String BVid){
-        String data=null;
+    public static String BVidToAid(String BVid) {
+        String data = null;
         try {
-            data=new internet().Eget("https://api.bilibili.com/x/web-interface/view?bvid="+BVid);
+            data = new internet().Eget("https://api.bilibili.com/x/web-interface/view?bvid=" + BVid);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        JsonObject json=JsonParser.parseString(data).getAsJsonObject();
-        if(json.get("code").getAsInt()==0) {
+        JsonObject json = JsonParser.parseString(data).getAsJsonObject();
+        if (json.get("code").getAsInt() == 0) {
             return json.get("data").getAsJsonObject().get("aid").getAsString();
         }
         return "404";
     }
 
-    private static JsonObject json;
-
-    public String getVideoUrl(String aid, long cid, int qn1){
-        String data=null;
+    public static LinkedHashMap<String, Integer> getQuality(String aid, long cid) {
+        LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
+        String data = null;
         try {
-            data=new internet().getWithCookie(
-                    "https://api.bilibili.com/x/player/playurl?avid="+aid+"&cid="+cid+"&fourk=1&qn="+qn1,
-                    "SESSDATA="+ main.SESSDATA+"; bili_jct="+main.bili_jct
+            data = new internet().getWithCookie(
+                    "https://api.bilibili.com/x/player/playurl?avid=" + aid + "&cid=" + cid + "&fourk=1&qn=120",
+                    "SESSDATA=" + main.SESSDATA + "; bili_jct=" + main.bili_jct
             );
         } catch (Exception e) {
             e.printStackTrace();
         }
-         json=JsonParser.parseString(data).getAsJsonObject();
-        System.out.println(json);
-        if(json.get("code").getAsInt()==0){
-            return json.getAsJsonObject("data").get("durl").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
-        }
-        return "404";
-    }
-
-    public static LinkedHashMap<String,Integer> getQuality(String aid, long cid){
-        LinkedHashMap<String,Integer>map= new LinkedHashMap<>();
-        String data=null;
-        try {
-            data=new internet().getWithCookie(
-                    "https://api.bilibili.com/x/player/playurl?avid="+aid+"&cid="+cid+"&fourk=1&qn=120",
-                    "SESSDATA="+ main.SESSDATA+"; bili_jct="+main.bili_jct
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //data 获取有问题
-        JsonObject json=JsonParser.parseString(data).getAsJsonObject();
-        System.out.println(data);
-        if(json.get("code").getAsInt()==0){
-            JsonArray description= json.get("data").getAsJsonObject().get("accept_description").getAsJsonArray();
-            JsonArray quality= json.get("data").getAsJsonObject().get("accept_quality").getAsJsonArray();
-            int max=json.getAsJsonObject("data").get("quality").getAsInt();
-            for(int i=0;i<description.size();i++){
-                if(!(max<quality.get(i).getAsInt()))
-                {
+        JsonObject json = JsonParser.parseString(data).getAsJsonObject();
+        if (json.get("code").getAsInt() == 0) {
+            JsonArray description = json.get("data").getAsJsonObject().get("accept_description").getAsJsonArray();
+            JsonArray quality = json.get("data").getAsJsonObject().get("accept_quality").getAsJsonArray();
+            int max = json.getAsJsonObject("data").get("quality").getAsInt();
+            for (int i = 0; i < description.size(); i++) {
+                if (!(max < quality.get(i).getAsInt())) {
                     map.put(description.get(i).getAsString()
-                    ,quality.get(i).getAsInt());
+                            , quality.get(i).getAsInt());
                 }
             }
         }
         return map;
     }
 
-    public static JsonObject getVideoJson(String aid){
-        String data=null;
+    public static JsonObject getVideoJson(String aid) {
+        String data = null;
         try {
             data = new internet().Eget("https://api.bilibili.com/x/web-interface/view?aid=" + aid);
         } catch (Exception e) {
@@ -107,7 +85,7 @@ public class video {
         return JsonParser.parseString(data).getAsJsonObject();
     }
 
-    public static String getVideoPic(JsonObject json){
+    public static String getVideoPic(JsonObject json) {
         return json.getAsJsonObject("data").get("pic").getAsString();
     }
 
@@ -128,7 +106,25 @@ public class video {
         return true;
     }
 
-    public static boolean videoIsExist(JsonObject json){
-        return json.get("code").getAsInt()==0;
+    public static boolean videoIsExist(JsonObject json) {
+        return json.get("code").getAsInt() == 0;
+    }
+
+    public String getVideoUrl(String aid, long cid, int qn1) {
+        String data = null;
+        try {
+            data = new internet().getWithCookie(
+                    "https://api.bilibili.com/x/player/playurl?avid=" + aid + "&cid=" + cid + "&fourk=1&qn=" + qn1,
+                    "SESSDATA=" + main.SESSDATA + "; bili_jct=" + main.bili_jct
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        json = JsonParser.parseString(data).getAsJsonObject();
+        System.out.println(json);
+        if (json.get("code").getAsInt() == 0) {
+            return json.getAsJsonObject("data").get("durl").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
+        }
+        return "404";
     }
 }

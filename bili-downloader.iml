@@ -20,21 +20,22 @@
     <orderEntry type="library" name="Maven: uk.co.caprica:vlcj-natives:4.1.0" level="project" />
     <orderEntry type="library" name="Maven: net.java.dev.jna:jna:5.2.0" level="project" />
     <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:5.2.0" level="project" />
+    <orderEntry type="library" name="Maven: uk.co.caprica:vlcj-javafx:1.0.3" level="project" />
     <orderEntry type="library" name="Maven: com.google.zxing:core:3.4.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.zxing:javase:3.4.1" level="project" />
     <orderEntry type="library" name="Maven: com.beust:jcommander:1.78" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.github.jai-imageio:jai-imageio-core:1.4.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.9" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:win:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:11.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:win:11.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:13.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:13.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:13.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:13.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:13.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:13.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:13.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:win:13.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:13.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:win:13.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:11.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.dlsc.formsfx:formsfx-core:11.4.2" level="project" />
     <orderEntry type="library" name="Maven: net.synedra:validatorfx:0.1.13" level="project" />

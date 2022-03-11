@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="530.0" prefWidth="600.0" stylesheets="@viewVideo.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.viewVideo">
+<AnchorPane prefHeight="530.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.viewVideo">
    <children>
       <VBox prefHeight="542.0" prefWidth="600.0">
          <children>
@@ -46,4 +47,8 @@
          </children>
       </VBox>
    </children>
+   <stylesheets>
+      <URL value="@css/viewVideo.css" />
+      <URL value="@css/main.css" />
+   </stylesheets>
 </AnchorPane>

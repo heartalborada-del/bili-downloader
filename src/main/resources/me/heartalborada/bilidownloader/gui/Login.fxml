@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="307.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.login">
    <children>
-      <VBox prefHeight="307.0" prefWidth="344.0">
+      <VBox prefHeight="307.0" prefWidth="344.0" stylesheets="@css/main.css">
          <children>
             <VBox prefHeight="61.0" prefWidth="344.0">
                <children>

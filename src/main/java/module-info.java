@@ -15,6 +15,7 @@ module me.heartalborada.bilibili.downloader.bilidownloader {
     requires com.google.zxing;
     requires com.google.zxing.javase;
     requires uk.co.caprica.vlcj;
+    requires uk.co.caprica.vlcj.javafx;
 
     exports me.heartalborada.bilidownloader.gui;
     opens me.heartalborada.bilidownloader.gui to javafx.fxml;

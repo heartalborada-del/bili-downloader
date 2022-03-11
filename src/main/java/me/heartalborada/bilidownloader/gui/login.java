@@ -28,45 +28,50 @@ import static me.heartalborada.bilidownloader.utils.login.qr.IsLogin;
 import static me.heartalborada.bilidownloader.utils.login.qr.getOauthKey;
 import static me.heartalborada.bilidownloader.utils.login.sms.getSmsLocationMap;
 
-public class login extends Application implements Initializable{
+public class login extends Application implements Initializable {
+    public static int flag = 0;//flag 为判断登录方式变量
     //captcha begin
-    protected static String gt=null,challenge=null,validate=null,seccode,key=null;
+    protected static String gt = null, challenge = null, validate = null, seccode, key = null;
     //captcha end
     //sms begin
     protected static String captcha_key;
     protected static LinkedHashMap<String, Integer> map;
     //sms end
     //qr begin
-    protected static String oauthKey=null;
+    protected static String oauthKey = null;
     //qr end
     private static Stage stage;
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws IOException {
-        Parent root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Login.fxml")));
-        primaryStage.setTitle("登录bilibili");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-        stage= primaryStage;
-    }
-
+    private static int timeout_180 = 180;
+    private static int st_s = 60;
     @FXML
     private Label qrlogin_state;
     @FXML
-    private TextField acc_input,phone_number,sms_code;
+    private TextField acc_input, phone_number, sms_code;
     @FXML
     private PasswordField pw_input;
     @FXML
     private ChoiceBox<String> sms_choice;
     @FXML
-    private VBox password,sms,qr,captcha_login;
+    private VBox password, sms, qr, captcha_login;
     @FXML
     private ImageView qrcode_show;
-    public static int flag=0;//flag 为判断登录方式变量
-    private static int timeout_180=180;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    public static void close() {
+        stage.close();
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Login.fxml")));
+        primaryStage.setTitle("登录bilibili");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+        stage = primaryStage;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,9 +83,8 @@ public class login extends Application implements Initializable{
             return null;
         };
         map = getSmsLocationMap();
-        Iterator<Map.Entry<String, Integer>> iterator= map.entrySet().iterator();
-        while(iterator.hasNext())
-        {
+        Iterator<Map.Entry<String, Integer>> iterator = map.entrySet().iterator();
+        while (iterator.hasNext()) {
             Map.Entry<? extends String, ? extends Integer> entry = iterator.next();
             //System.out.println(entry.getKey()+":"+entry.getValue());
             sms_choice.getItems().add(entry.getKey().toString());
@@ -102,15 +106,15 @@ public class login extends Application implements Initializable{
         });
     }
 
-    public void getQRcode(ActionEvent event){
-        timeout_180=180;
-        oauthKey= getOauthKey();
+    public void getQRcode(ActionEvent event) {
+        timeout_180 = 180;
+        oauthKey = getOauthKey();
         Timeline an = new Timeline(new KeyFrame(Duration.millis(1000), e -> qrLogin((Button) event.getSource())));
-        an.setCycleCount(timeout_180+1);
+        an.setCycleCount(timeout_180 + 1);
         an.play();
-        byte[] bytes={};
+        byte[] bytes = {};
         try {
-            bytes=qrcode.getQRCodeImage("https://passport.bilibili.com/qrcode/h5/login?oauthKey="+oauthKey,100,100);
+            bytes = qrcode.getQRCodeImage("https://passport.bilibili.com/qrcode/h5/login?oauthKey=" + oauthKey, 100, 100);
         } catch (WriterException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -118,7 +122,8 @@ public class login extends Application implements Initializable{
         }
         qrcode_show.setImage(new Image(new ByteArrayInputStream(bytes)));
     }
-    public void getCaptcha(ActionEvent event){
+
+    public void getCaptcha(ActionEvent event) {
         try {
             new captcha().start(new Stage());
         } catch (IOException e) {
@@ -126,92 +131,90 @@ public class login extends Application implements Initializable{
         }
     }
 
-    private static int st_s=60;
-
-    public void sixteens_cooldown(Button bt){
-        st_s=60;
+    public void sixteens_cooldown(Button bt) {
+        st_s = 60;
         Timeline an = new Timeline(new KeyFrame(Duration.millis(1000), e -> timelabel(bt)));
-        an.setCycleCount(st_s+1);
+        an.setCycleCount(st_s + 1);
         an.play();
     }
 
     public void qrLogin(Button bt) {
-        if(timeout_180==0){
+        if (timeout_180 == 0) {
             qrlogin_state.setText("状态: 未生成二维码/二维码已过期");
             bt.setText("获取登录二维码");
-            oauthKey=null;
+            oauthKey = null;
             bt.setDisable(false);
             return;
         }
-        String data[]={};
+        String data[] = {};
         try {
-            data=IsLogin(oauthKey);
+            data = IsLogin(oauthKey);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(data[0].equals("0")){
-            qrlogin_state.setText("状态: "+data[1]);
+        if (data[0].equals("0")) {
+            qrlogin_state.setText("状态: " + data[1]);
         } else {
             qrlogin_state.setText("状态: 登录成功");
         }
-        bt.setText(timeout_180+" s后登录二维码超时，需重新获取");
+        bt.setText(timeout_180 + " s后登录二维码超时，需重新获取");
         bt.setDisable(true);
         --timeout_180;
     }
 
     public void timelabel(Button bt) {
-        if(st_s==0){
+        if (st_s == 0) {
             bt.setText("获取验证码");
-            gt=null;
+            gt = null;
             bt.setDisable(false);
             return;
         }
-        bt.setText(st_s+" s后可重新获取验证码");
+        bt.setText(st_s + " s后可重新获取验证码");
         bt.setDisable(true);
         --st_s;
     }
 
-    public void getSmsCode(ActionEvent event){
+    public void getSmsCode(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.titleProperty().set("错误");
-        if(login.key == null || login.challenge == null || login.validate == null || login.seccode == null) {
+        if (login.key == null || login.challenge == null || login.validate == null || login.seccode == null) {
             alert.setHeaderText("未获取人机验证验证码/获取失败");
             alert.showAndWait();
             return;
         }
-        int cid= map.get(sms_choice.getValue());
+        int cid = map.get(sms_choice.getValue());
         sixteens_cooldown((Button) event.getSource());
-        long pn=Long.parseLong(phone_number.getText());
+        long pn = Long.parseLong(phone_number.getText());
         String tmp = me.heartalborada.bilidownloader.utils.login.sms.SendSmsCaptcha(
                 pn,
                 cid,
                 new String[]{
-                    login.key,
-                    login.challenge,
-                    login.validate,
-                    login.seccode
-        });
-        if(!tmp.equals("")){
-            captcha_key=tmp;
+                        login.key,
+                        login.challenge,
+                        login.validate,
+                        login.seccode
+                });
+        if (!tmp.equals("")) {
+            captcha_key = tmp;
         }
     }
 
-    public void changeLoginMode(ActionEvent event){
+    public void changeLoginMode(ActionEvent event) {
         String bu_id = ((Button) event.getSource()).getId();
-        if(bu_id.equals("pw_login")){
-            flag=0;
+        if (bu_id.equals("pw_login")) {
+            flag = 0;
             password.setVisible(true);
             sms.setVisible(false);
             qr.setVisible(false);
             captcha_login.setVisible(true);
-        } else if(bu_id.equals("sms_login")){
-            flag=1;
+        } else if (bu_id.equals("sms_login")) {
+            flag = 1;
             password.setVisible(false);
             sms.setVisible(true);
             qr.setVisible(false);
             captcha_login.setVisible(true);
-        } else if(bu_id.equals("qr_login")){
-            flag=2;
+        } else if (bu_id.equals("qr_login")) {
+            flag = 2;
             password.setVisible(false);
             sms.setVisible(false);
             qr.setVisible(true);
@@ -219,28 +222,24 @@ public class login extends Application implements Initializable{
         }
     }
 
-    public static void close(){
-        stage.close();
-    }
-
-    public void doLogin(){
+    public void doLogin() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.titleProperty().set("错误");
-        if(login.key == null || login.challenge == null || login.validate == null || login.seccode == null) {
+        if (login.key == null || login.challenge == null || login.validate == null || login.seccode == null) {
             alert.setHeaderText("未获取人机验证验证码/获取失败");
             alert.showAndWait();
             return;
         }
-        if(flag==0) {
-            String acc,pw_none;
-            acc=acc_input.getText();
-            pw_none=pw_input.getText();
-            if(pw_none.equals("")){
+        if (flag == 0) {
+            String acc, pw_none;
+            acc = acc_input.getText();
+            pw_none = pw_input.getText();
+            if (pw_none.equals("")) {
                 alert.setHeaderText("你还没有填写密码");
                 alert.show();
                 return;
             }
-            if(acc.equals("")){
+            if (acc.equals("")) {
                 alert.setHeaderText("你还没有填写手机号/邮箱");
                 alert.show();
                 return;
@@ -255,21 +254,21 @@ public class login extends Application implements Initializable{
                             me.heartalborada.bilidownloader.gui.login.validate,
                             me.heartalborada.bilidownloader.gui.login.seccode
                     });
-        } else if (flag==1){
-            if(phone_number.getText().equals("")){
+        } else if (flag == 1) {
+            if (phone_number.getText().equals("")) {
                 alert.setHeaderText("您还没输入手机号");
                 alert.showAndWait();
                 return;
             }
-            if(sms_code.getText().equals("")){
+            if (sms_code.getText().equals("")) {
                 alert.setHeaderText("您还没输入短信验证码");
                 alert.showAndWait();
                 return;
             }
-            int cid= map.get(sms_choice.getValue());
-            long pn=Long.parseLong(phone_number.getText());
-            long code=Long.parseLong(sms_code.getText());
-            me.heartalborada.bilidownloader.utils.login.sms.doLogin(cid,pn,code,captcha_key);
+            int cid = map.get(sms_choice.getValue());
+            long pn = Long.parseLong(phone_number.getText());
+            long code = Long.parseLong(sms_code.getText());
+            me.heartalborada.bilidownloader.utils.login.sms.doLogin(cid, pn, code, captcha_key);
         }
     }
 }
