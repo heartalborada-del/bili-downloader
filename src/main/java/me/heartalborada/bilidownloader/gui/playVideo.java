@@ -81,6 +81,10 @@ public class playVideo extends Application implements Initializable {
                     @Override
                     public void stopped(MediaPlayer mediaPlayer) {
                         an.stop();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.titleProperty().set("信息");
+                        alert.setHeaderText("直播已结束/数据流断开");
+                        alert.showAndWait();
                     }
 
                     @Override
@@ -137,15 +141,24 @@ public class playVideo extends Application implements Initializable {
         qncb.getItems().clear();
         String in=uid_in.getText();
         if(!checkStrIsNum(in)){
-            System.out.println("1");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.titleProperty().set("错误");
+            alert.setHeaderText("你所输入的不是正确的UID");
+            alert.showAndWait();
             return;
         }
         if(!hasLiveRoom(Long.parseLong(in))){
-            System.out.println("2");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.titleProperty().set("错误");
+            alert.setHeaderText("该用户没有直播间");
+            alert.showAndWait();
             return;
         }
         if(!isLiving(Long.parseLong(in))){
-            System.out.println("3");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.titleProperty().set("错误");
+            alert.setHeaderText("该用户未开播");
+            alert.showAndWait();
             return;
         }
         roomID=getRoomId(Long.parseLong(in));
