@@ -10,9 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -28,6 +26,7 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import java.net.URL;
 import java.util.*;
 
+import static javafx.scene.control.Alert.AlertType.CONFIRMATION;
 import static me.heartalborada.bilidownloader.utils.live.*;
 import static me.heartalborada.bilidownloader.utils.unicode.unicodeStr2String;
 import static me.heartalborada.bilidownloader.utils.video.checkStrIsNum;
@@ -56,10 +55,33 @@ public class playVideo extends Application implements Initializable {
     @Override
     public void start(Stage stage) throws Exception {
         if(!(new NativeDiscovery().discover())){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.titleProperty().set("错误");
+            Alert alert = new Alert(CONFIRMATION);
+            alert.setTitle("错误");
             alert.setHeaderText("您未安装VLC\n若你已安装VLC请检查版本是否为3.x\n注意: java为64位VLC，需安装64位版本；32位同");
-            alert.showAndWait();
+            alert.setContentText("点击\"下载\"开始下载VLC\n点击\"取消\"取消启动");
+            ButtonType download = new ButtonType("下载");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(download, buttonTypeCancel);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == download) {
+                if (java.awt.Desktop.isDesktopSupported()) {
+                    try {
+                        // 创建一个URI实例
+                        java.net.URI uri = java.net.URI.create("https://www.videolan.org/vlc/");
+                        // 获取当前系统桌面扩展
+                        java.awt.Desktop dp = java.awt.Desktop.getDesktop() ;
+                        // 判断系统桌面是否支持要执行的功能
+                        if (dp.isSupported(java.awt.Desktop.Action.BROWSE)) {
+                            // 获取系统默认浏览器打开链接
+                            dp.browse( uri ) ;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace() ;
+                    }
+                }
+            } else {
+                System.out.println("你可以到\"https://www.videolan.org/vlc/\"去下载最新版本的VLC");
+            }
             return;
         }
         an.setCycleCount(Animation.INDEFINITE);
