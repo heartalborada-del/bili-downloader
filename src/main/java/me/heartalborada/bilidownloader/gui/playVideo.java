@@ -134,6 +134,7 @@ public class playVideo extends Application implements Initializable {
     private static LinkedHashMap<String, Long> qnmap;
     private static LinkedHashMap<String, String> serverMap;
     public void getQn(){
+        qncb.getItems().clear();
         String in=uid_in.getText();
         if(!checkStrIsNum(in)){
             System.out.println("1");
@@ -158,6 +159,7 @@ public class playVideo extends Application implements Initializable {
     }
 
     public void getServer(){
+        servercb.getItems().clear();
         serverMap = getServerList(roomID,qnmap.get(qncb.getValue()));
         Iterator<Map.Entry<String, String>> iterator = serverMap.entrySet().iterator();
         while (iterator.hasNext()) {
