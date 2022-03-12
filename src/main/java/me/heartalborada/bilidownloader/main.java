@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.application.Application;
 import me.heartalborada.bilidownloader.gui.login;
+import me.heartalborada.bilidownloader.gui.playVideo;
 import me.heartalborada.bilidownloader.gui.viewVideo;
 import me.heartalborada.bilidownloader.utils.file;
 
@@ -11,11 +12,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.stream.Stream;
 
+import static java.lang.System.getProperty;
 import static me.heartalborada.bilidownloader.utils.login.checkIsLogin;
 
 public class main {
     //file
-    public static final String run_dir = System.getProperty("user.dir");
+    public static final String run_dir = getProperty("user.dir");
     public static final String config_dir = run_dir + "/config/";
     public static final String cookie_file_dir = config_dir + "bili_cookies.json";
     public static final String settings_file_dir = config_dir + "settings.json";
@@ -27,12 +29,17 @@ public class main {
     public static long max_buffer_size = 2048;
 
     public static void main(String[] arg) {
-        String java_version = System.getProperty("java.version").split("\\.")[0];
+        String live = getProperty("live","");
+        if(live.equals("1")){
+            playVideo.main(new String[]{});
+            return;
+        }
+        String java_version = getProperty("java.version").split("\\.")[0];
         if (Integer.parseInt(java_version) < 13) {
             System.err.println("本程序需要在Java 13及以上的环境运行");
             System.exit(0);
         }
-        if (System.getProperty("os.name").equals("Linux")) {
+        if (getProperty("os.name").equals("Linux")) {
             System.setProperty("java.awt.headless", "true");
         }
         try {

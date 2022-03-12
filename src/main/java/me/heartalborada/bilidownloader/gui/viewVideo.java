@@ -37,7 +37,9 @@ public class viewVideo extends Application implements Initializable {
     @FXML
     private Label Vsize, VDspeed, title;
     @FXML
-    private ChoiceBox vpl, video_page;
+    private ChoiceBox<String> vpl;
+    @FXML
+    private ChoiceBox<String> video_page;
     @FXML
     private Button bt2, bt3;
 
