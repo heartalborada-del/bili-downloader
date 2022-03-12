@@ -74,6 +74,8 @@ public class playVideo extends Application implements Initializable {
                         if (dp.isSupported(java.awt.Desktop.Action.BROWSE)) {
                             // 获取系统默认浏览器打开链接
                             dp.browse( uri ) ;
+                        } else {
+                            System.out.println("无法拉起浏览器，你可以到\"https://www.videolan.org/vlc/\"去下载最新版本的VLC");
                         }
                     } catch (Exception e) {
                         e.printStackTrace() ;
