@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -19,6 +20,7 @@ import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import me.heartalborada.bilidownloader.utils.time;
 import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
+import uk.co.caprica.vlcj.factory.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.player.base.MediaPlayer;
 import uk.co.caprica.vlcj.player.base.MediaPlayerEventAdapter;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
@@ -53,6 +55,13 @@ public class playVideo extends Application implements Initializable {
     }
     @Override
     public void start(Stage stage) throws Exception {
+        if(!(new NativeDiscovery().discover())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.titleProperty().set("错误");
+            alert.setHeaderText("您未安装VLC\n若你已安装VLC请检查版本是否为3.x\n注意: java为64位VLC，需安装64位版本；32位同");
+            alert.showAndWait();
+            return;
+        }
         an.setCycleCount(Animation.INDEFINITE);
         factory=new MediaPlayerFactory();
         s=stage;
