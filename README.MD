@@ -21,6 +21,7 @@
    - InputStream也许读取有点问题?
 ## 已知的BUG (求各位大佬Pr修复啊)
 1. 下载视频时会卡死Gui线程
+2. 无法播放完整视频
 ## 信息
 使用的api来自Bilibili官方 [Bilibili-API-collect](https://github.com/SocialSisterYi/bilibili-API-collect)
 
