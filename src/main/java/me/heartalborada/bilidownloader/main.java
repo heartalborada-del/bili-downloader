@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.application.Application;
 import me.heartalborada.bilidownloader.gui.login;
-import me.heartalborada.bilidownloader.gui.playVideo;
+import me.heartalborada.bilidownloader.gui.playLive;
 import me.heartalborada.bilidownloader.gui.viewVideo;
 import me.heartalborada.bilidownloader.utils.file;
 
@@ -31,7 +31,7 @@ public class main {
     public static void main(String[] arg) {
         String live = getProperty("live","");
         if(live.equals("1")){
-            playVideo.main(new String[]{});
+            playLive.main(new String[]{});
             return;
         }
         String java_version = getProperty("java.version").split("\\.")[0];

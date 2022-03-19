@@ -95,11 +95,15 @@ public class internet {
 
     public String Eget(String uri) throws Exception {//Easy do get
         URL url = new URL(uri);
-        URLConnection conn = url.openConnection();
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0");
         conn.setDoInput(true);
         conn.setRequestProperty("Contect-Type", "charset=UTF-8");
         conn.setRequestProperty("referer", "https://www.bilibili.com");
+        if (conn.getResponseCode() / 100 != 2) {
+            System.out.println("连接失败...");
+            return "";
+        }
         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         String line = null;

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heartalborada.bilidownloader.gui.playLive">
+   <children>
+      <VBox fx:id="box01" alignment="TOP_CENTER" cache="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="601.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="20.0" prefWidth="601.0">
+               <children>
+                  <TextField fx:id="uid_in" prefHeight="23.0" prefWidth="118.0" promptText="请输入该用户UID" />
+                  <Button mnemonicParsing="false" onAction="#getQn" prefHeight="23.0" prefWidth="115.0" text="获取直播分辨率" />
+                  <ChoiceBox fx:id="qncb" prefHeight="23.0" prefWidth="83.0" />
+                  <Button mnemonicParsing="false" onAction="#getServer" prefHeight="23.0" prefWidth="110.0" text="获取直播服务器" />
+                  <ChoiceBox fx:id="servercb" prefHeight="23.0" prefWidth="86.0" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#play" prefHeight="23.0" prefWidth="107.0" text="观看直播" />
+               </children>
+            </HBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="video01" fitHeight="376.0" fitWidth="601.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -11,7 +11,7 @@
          <children>
             <VBox prefHeight="535.0" prefWidth="818.0">
                <children>
-                  <WebView fx:id="web" prefHeight="524.0" prefWidth="818.0" />
+                  <WebView fx:id="web" fontSmoothingType="GRAY" prefHeight="524.0" prefWidth="818.0" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="74.0" prefWidth="818.0">

@@ -35,7 +35,7 @@ public class download {
             }
             inputStream = connection.getInputStream();
             int downloaded = 0;
-            int fileSize = connection.getContentLength();
+            long fileSize = connection.getContentLength();
             randomAccessFile = new RandomAccessFile(fullPathName, "rw");
             l1.setText("文件大小: " + (double) fileSize / 1024.00 / 1024.00 + "MB");
             while (downloaded < fileSize) {
@@ -44,7 +44,7 @@ public class download {
                 if (fileSize - downloaded >= MAX_BUFFER_SIZE) {
                     buffer = new byte[MAX_BUFFER_SIZE];
                 } else {
-                    buffer = new byte[fileSize - downloaded];
+                    buffer = new byte[(int) (fileSize - downloaded)];
                 }
                 int read = -1;
                 int currentDownload = 0;
