@@ -1,43 +1,84 @@
 package me.heartalborada.bilidownloader.media;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHeader;
 import uk.co.caprica.vlcj.media.callback.nonseekable.NonSeekableInputStreamMedia;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.util.List;
+import java.net.URL;
 
 public class BilibiliInputStreamMedia extends NonSeekableInputStreamMedia {
-    private final String url;
-    private static HttpURLConnection connection = null;
-    private static long size;
+    private static HttpURLConnection connection;
+    private CloseableHttpResponse response = null;
+    private CloseableHttpClient client = null;
+    //private final HttpEntity entity;
 
     public BilibiliInputStreamMedia(String url) {
-        this.url = url;
+        try {
+            URL uri = new URL(url);
+            connection = (HttpURLConnection) uri.openConnection();
+            connection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0");
+            connection.setDoInput(true);
+            connection.setRequestProperty("referer", "https://www.bilibili.com");
+            connection.setRequestProperty("Range", "bytes=0-");
+            connection.connect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /*
+        List<? extends org.apache.http.Header> defaultHeaders = List.of(
+                new BasicHeader("referer", "https://www.bilibili.com"),
+                new BasicHeader("Range", "bytes=0-")
+        );
+        client = HttpClients.custom().setDefaultHeaders(defaultHeaders).build();
+        HttpGet get = new HttpGet(url);
+        try {
+            response = client.execute(get);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        entity = response.getEntity();
+         */
     }
 
     public BilibiliInputStreamMedia(String url, int ioBufferSize){
         super(ioBufferSize);
-        this.url = url;
+        /*
+        List<? extends org.apache.http.Header> defaultHeaders = List.of(
+                new BasicHeader("referer", "https://www.bilibili.com"),
+                new BasicHeader("Range", "bytes=0-")
+        );
+        client = HttpClients.custom().setDefaultHeaders(defaultHeaders).build();
+        HttpGet get = new HttpGet(url);
+        try {
+            response = client.execute(get);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        entity = response.getEntity();
+         */
+        try {
+            URL uri = new URL(url);
+            connection = (HttpURLConnection) uri.openConnection();
+            connection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0");
+            connection.setDoInput(true);
+            connection.setRequestProperty("referer", "https://www.bilibili.com");
+            connection.setRequestProperty("Range", "bytes=0-");
+            connection.setConnectTimeout(10000);
+            connection.setReadTimeout(10000);
+            connection.connect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected InputStream onOpenStream() throws IOException {
-        List<? extends org.apache.http.Header> defaultHeaders = List.of(
-                new BasicHeader("referer", "https://www.bilibili.com")
-        );
-        CloseableHttpClient client = HttpClients.custom().setDefaultHeaders(defaultHeaders).build();
-        HttpGet get = new HttpGet(url);
-        HttpResponse response = client.execute(get);
-        HttpEntity entity = response.getEntity();
-        size=entity.getContentLength();
-        return entity.getContent();
+        System.out.println("start");
+        return connection.getInputStream();
+        //return entity.getContent();
         /*
         InputStream inputStream = null;
         URL url = new URL(this.url);
@@ -54,12 +95,16 @@ public class BilibiliInputStreamMedia extends NonSeekableInputStreamMedia {
 
     @Override
     protected void onCloseStream(InputStream inputStream) throws IOException {
+        System.out.println("end");
         inputStream.close();
+        connection.disconnect();
         //connection.disconnect();
     }
 
     @Override
     protected long onGetSize() {
-        return size;
+        return connection.getContentLengthLong();
+        //System.out.println(entity.getContentLength());
+        //return entity.getContentLength();
     }
 }

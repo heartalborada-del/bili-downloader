@@ -16,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-import me.heartalborada.bilidownloader.media.BilibiliInputStreamMedia;
 import me.heartalborada.bilidownloader.utils.time;
 import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
 import uk.co.caprica.vlcj.factory.discovery.NativeDiscovery;
@@ -206,7 +205,7 @@ public class playLive extends Application implements Initializable {
     }
 
     public void play(){
-        BilibiliInputStreamMedia r=new BilibiliInputStreamMedia(unicodeStr2String("https://xy222x91x206x247xy.mcdn.bilivideo.cn:4483/upgcxcode/87/98/504929887/504929887_nb2-1-32.flv?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfqXBvEqxTEto8BTrNvN0GvT90W5JZMkX_YN0MvXg8gNEV4NC8xNEV4N03eN0B5tZlqNxTEto8BTrNvNeZVuJ10Kj_g2UB02J0mN0B5tZlqNCNEto8BTrNvNC7MTX502C8f2jmMQJ6mqF2fka1mqx6gqj0eN0B599M=&uipk=5&nbs=1&deadline=1647684722&gen=playurlv2&os=mcdn&oi=1987528732&trid=000021cfb7f128fb492e9442e047a6d096d1u&platform=pc&upsig=86d95cb3a9bfffa946a8b875a80f6c08&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,platform&mcdnid=2001017&mid=0&bvc=vod&nettype=0&orderid=0,3&agrr=1&bw=74967&logo=A0000002"));
+        //BilibiliInputStreamMedia r=new BilibiliInputStreamMedia(unicodeStr2String("https://xy222x91x206x247xy.mcdn.bilivideo.cn:4483/upgcxcode/87/98/504929887/504929887_nb2-1-32.flv?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfqXBvEqxTEto8BTrNvN0GvT90W5JZMkX_YN0MvXg8gNEV4NC8xNEV4N03eN0B5tZlqNxTEto8BTrNvNeZVuJ10Kj_g2UB02J0mN0B5tZlqNCNEto8BTrNvNC7MTX502C8f2jmMQJ6mqF2fka1mqx6gqj0eN0B599M=&uipk=5&nbs=1&deadline=1647684722&gen=playurlv2&os=mcdn&oi=1987528732&trid=000021cfb7f128fb492e9442e047a6d096d1u&platform=pc&upsig=86d95cb3a9bfffa946a8b875a80f6c08&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,platform&mcdnid=2001017&mid=0&bvc=vod&nettype=0&orderid=0,3&agrr=1&bw=74967&logo=A0000002"));
         //player.media().play(r," --network-caching=2000");
         player.media().play(unicodeStr2String(serverMap.get(servercb.getValue())));
         player.controls().setPosition(0.4f);

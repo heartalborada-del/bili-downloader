@@ -14,7 +14,8 @@
 1. ~~Bilibili视频信息获取及下载~~
 2. VLC播放视频支持
    - ~~播放本地/无防盗链视频支持~~
-   - bilibili防盗链视频支持(~~可能需要一个反代?~~)
+   - ~~bilibili防盗链视频支持(可能需要一个反代?)~~ (media.BilibiliInputStreamMedia.java)
+   - InputStream也许读取有点问题?
 ## 已知的BUG (求各位大佬Pr修复啊)
 1. 下载视频时会卡死Gui线程
 ## 信息
