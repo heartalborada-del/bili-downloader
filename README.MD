@@ -32,6 +32,7 @@
 开发版当前情况:
 
 ![bulid](https://img.shields.io/github/workflow/status/heartalborada-del/bili-downloader/Bulid%20Dev%20Version)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fheartalborada-del%2Fbili-downloader.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fheartalborada-del%2Fbili-downloader?ref=badge_shield)
 
 [戳我去Github Actions下载](https://github.com/heartalborada-del/bili-downloader/actions/workflows/dev.yml)
 
@@ -41,3 +42,6 @@ Release版本当前情况:
 ![bulid](https://img.shields.io/github/workflow/status/heartalborada-del/bili-downloader/Bulid%20Release%20Version)
 
 [戳我去Github Releases下载](https://github.com/heartalborada-del/bili-downloader/releases)
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fheartalborada-del%2Fbili-downloader.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fheartalborada-del%2Fbili-downloader?ref=badge_large)
