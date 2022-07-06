@@ -19,8 +19,9 @@
    - ~~播放本地/无防盗链视频支持~~
    - ~~bilibili防盗链视频支持(可能需要一个反代?)~~ (media.BilibiliInputStreamMedia.java)
    - InputStream也许读取有点问题?
+   - b站视频改mp4了，直播流改m3u8了
 ## 已知的BUG (求各位大佬Pr修复啊)
-1. 下载视频时会卡死Gui线程
+1. 下载视频时会卡死Gui线程(sout的问题)
 2. 无法播放完整视频
 ## 信息
 使用的api来自Bilibili官方 [Bilibili-API-collect](https://github.com/SocialSisterYi/bilibili-API-collect)
